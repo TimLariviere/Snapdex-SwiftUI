@@ -6,7 +6,21 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		27468BF72D9E82F500A2ED98 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BF62D9E82F500A2ED98 /* Alamofire */; };
+		27468BFA2D9E834500A2ED98 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BF92D9E834500A2ED98 /* Kingfisher */; };
+		27468BFD2D9E83C900A2ED98 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BFC2D9E83C900A2ED98 /* RealmSwift */; };
+		27468C002D9E849500A2ED98 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BFF2D9E849500A2ED98 /* FirebaseAnalytics */; };
+		27468C022D9E849500A2ED98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C012D9E849500A2ED98 /* FirebaseAuth */; };
+		27468C042D9E849500A2ED98 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C032D9E849500A2ED98 /* FirebaseCore */; };
+		27468C062D9E849500A2ED98 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C052D9E849500A2ED98 /* FirebaseCrashlytics */; };
+		27468C082D9E849500A2ED98 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C072D9E849500A2ED98 /* FirebaseFirestore */; };
+		27468C0B2D9E852800A2ED98 /* TensorFlowLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C0A2D9E852800A2ED98 /* TensorFlowLiteSwift */; };
+		27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27468C0D2D9E866700A2ED98 /* CoreML.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		27468C0D2D9E866700A2ED98 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreML.framework; sourceTree = DEVELOPER_DIR; };
 		278673412D9D8A6300C03987 /* Snapdex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapdex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -23,16 +37,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */,
+				27468BFD2D9E83C900A2ED98 /* RealmSwift in Frameworks */,
+				27468C022D9E849500A2ED98 /* FirebaseAuth in Frameworks */,
+				27468BFA2D9E834500A2ED98 /* Kingfisher in Frameworks */,
+				27468C062D9E849500A2ED98 /* FirebaseCrashlytics in Frameworks */,
+				27468C0B2D9E852800A2ED98 /* TensorFlowLiteSwift in Frameworks */,
+				27468C002D9E849500A2ED98 /* FirebaseAnalytics in Frameworks */,
+				27468C082D9E849500A2ED98 /* FirebaseFirestore in Frameworks */,
+				27468C042D9E849500A2ED98 /* FirebaseCore in Frameworks */,
+				27468BF72D9E82F500A2ED98 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27468C0C2D9E866700A2ED98 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27468C0D2D9E866700A2ED98 /* CoreML.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		278673382D9D8A6300C03987 = {
 			isa = PBXGroup;
 			children = (
 				278673432D9D8A6300C03987 /* Snapdex */,
+				27468C0C2D9E866700A2ED98 /* Frameworks */,
 				278673422D9D8A6300C03987 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +98,15 @@
 			);
 			name = Snapdex;
 			packageProductDependencies = (
+				27468BF62D9E82F500A2ED98 /* Alamofire */,
+				27468BF92D9E834500A2ED98 /* Kingfisher */,
+				27468BFC2D9E83C900A2ED98 /* RealmSwift */,
+				27468BFF2D9E849500A2ED98 /* FirebaseAnalytics */,
+				27468C012D9E849500A2ED98 /* FirebaseAuth */,
+				27468C032D9E849500A2ED98 /* FirebaseCore */,
+				27468C052D9E849500A2ED98 /* FirebaseCrashlytics */,
+				27468C072D9E849500A2ED98 /* FirebaseFirestore */,
+				27468C0A2D9E852800A2ED98 /* TensorFlowLiteSwift */,
 			);
 			productName = Snapdex;
 			productReference = 278673412D9D8A6300C03987 /* Snapdex.app */;
@@ -94,6 +136,13 @@
 			);
 			mainGroup = 278673382D9D8A6300C03987;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				27468BF82D9E834500A2ED98 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				27468BFB2D9E83C900A2ED98 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				27468C092D9E852800A2ED98 /* XCRemoteSwiftPackageReference "TensorFlowLiteSwift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 278673422D9D8A6300C03987 /* Products */;
 			projectDirPath = "";
@@ -339,6 +388,97 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		27468BF82D9E834500A2ED98 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.1;
+			};
+		};
+		27468BFB2D9E83C900A2ED98 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+		27468C092D9E852800A2ED98 /* XCRemoteSwiftPackageReference "TensorFlowLiteSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kewlbear/TensorFlowLiteSwift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		27468BF62D9E82F500A2ED98 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		27468BF92D9E834500A2ED98 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BF82D9E834500A2ED98 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		27468BFC2D9E83C900A2ED98 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BFB2D9E83C900A2ED98 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		27468BFF2D9E849500A2ED98 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		27468C012D9E849500A2ED98 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		27468C032D9E849500A2ED98 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		27468C052D9E849500A2ED98 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		27468C072D9E849500A2ED98 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		27468C0A2D9E852800A2ED98 /* TensorFlowLiteSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27468C092D9E852800A2ED98 /* XCRemoteSwiftPackageReference "TensorFlowLiteSwift" */;
+			productName = TensorFlowLiteSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 278673392D9D8A6300C03987 /* Project object */;
 }
