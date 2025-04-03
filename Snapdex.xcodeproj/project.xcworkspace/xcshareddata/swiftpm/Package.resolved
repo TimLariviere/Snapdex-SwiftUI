@@ -1,5 +1,5 @@
 {
-  "originHash" : "8f23b01149eda129dc4547bb84553f6774f6786254118d0b8e4134035d06a098",
+  "originHash" : "070405ff3adb7d793609dfd289620a545bdf76d2f2830304d3069630e205ab39",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -128,48 +128,12 @@
       }
     },
     {
-      "identity" : "realm-core",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-core.git",
-      "state" : {
-        "revision" : "cccb3ca9e26ec452a29f2f0d4050d1e38b8a3d43",
-        "version" : "14.14.0"
-      }
-    },
-    {
-      "identity" : "realm-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/realm/realm-swift.git",
-      "state" : {
-        "revision" : "8cb364a6a63695df296f05b53f7c3f3b1dda6af3",
-        "version" : "10.54.3"
-      }
-    },
-    {
       "identity" : "swift-protobuf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
         "revision" : "d72aed98f8253ec1aa9ea1141e28150f408cf17f",
         "version" : "1.29.0"
-      }
-    },
-    {
-      "identity" : "tensorflowlitec",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kewlbear/TensorFlowLiteC.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "94cb8038f42be15567ed1f89d53e80f529bac0d9"
-      }
-    },
-    {
-      "identity" : "tensorflowliteswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kewlbear/TensorFlowLiteSwift.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "2c251708872ba1798eda2ad1107737ca14e73eaa"
       }
     }
   ],
