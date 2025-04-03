@@ -1,8 +1,14 @@
 import SwiftUI
 
 struct LoginScreen: View {
+    private let onRegisterClick: () -> Void
+    
     @Environment(\.theme) private var theme
     @StateObject private var viewModel = LoginViewModel()
+
+    init(onRegisterClick: @escaping () -> Void) {
+        self.onRegisterClick = onRegisterClick
+    }
     
     var body: some View {
         SnapdexBackground {
@@ -22,7 +28,8 @@ struct LoginScreen: View {
                 VStack(spacing: 16) {
                     SnapdexTextField(
                         text: $viewModel.email,
-                        hint: "Email"
+                        hint: "Email",
+                        keyboardType: .emailAddress
                     )
                     
                     SnapdexPasswordField(
@@ -43,7 +50,7 @@ struct LoginScreen: View {
                     }
                     
                     SnapdexLinkButton("Create an account") {
-                        
+                        onRegisterClick()
                     }
                 }
             }
@@ -55,6 +62,8 @@ struct LoginScreen: View {
 
 #Preview {
     PreviewView {
-        LoginScreen()
+        LoginScreen(
+            onRegisterClick: {}
+        )
     }
 }

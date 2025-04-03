@@ -8,7 +8,7 @@ struct SnapdexPasswordField: View {
     @FocusState private var isFocused: Bool
     @State private var isPasswordVisible: Bool = false
     
-    init(text: Binding<String>, hint: LocalizedStringKey) {
+    init(text: Binding<String>, hint: LocalizedStringKey = "") {
         self._text = text
         self.hint = hint
     }

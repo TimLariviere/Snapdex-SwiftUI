@@ -1,7 +1,15 @@
 import SwiftUI
+import Combine
 
-struct IntroView: View {
+struct IntroScreen: View {
+    private let onContinue: () -> Void
+    
     @StateObject private var viewModel = IntroViewModel()
+    @State private var cancellables = Set<AnyCancellable>()
+    
+    init(onContinue: @escaping () -> Void) {
+        self.onContinue = onContinue
+    }
     
     var body: some View {
         SnapdexBackground {
@@ -38,6 +46,11 @@ struct IntroView: View {
                 .padding(.bottom, 40)
             }
         }
+        .onAppear {
+            viewModel.didFinish
+                .sink { _ in onContinue() }
+                .store(in: &cancellables)
+        }
     }
     
     func getDetail(index: Int) -> (String, LocalizedStringResource) {
@@ -54,6 +67,6 @@ struct IntroView: View {
 
 #Preview {
     PreviewView {
-        IntroView()
+        IntroScreen(onContinue: {})
     }
 }

@@ -5,14 +5,19 @@ struct SnapdexTextField: View {
     @FocusState private var isFocused: Bool
     @Binding var text: String
     var hint: LocalizedStringKey
+    var keyboardType: UIKeyboardType
     
-    init(text: Binding<String>, hint: LocalizedStringKey) {
+    init(text: Binding<String>, hint: LocalizedStringKey = "", keyboardType: UIKeyboardType = .default) {
         self._text = text
         self.hint = hint
+        self.keyboardType = keyboardType
     }
     
     var body: some View {
         TextField("", text: $text, prompt: Text(hint).foregroundStyle(theme.colors.onSurfaceVariant))
+            .autocorrectionDisabled()
+            .textInputAutocapitalization(.never)
+            .keyboardType(keyboardType)
             .tint(theme.colors.primary)
             .lineLimit(1)
             .focused($isFocused)

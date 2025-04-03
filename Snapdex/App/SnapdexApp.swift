@@ -6,7 +6,7 @@ struct SnapdexApp: App {
         let theme = Theme()
         
         WindowGroup {
-            LoginScreen()
+            NavigationRoot()
                 .environment(\.theme, theme)
                 .foregroundStyle(theme.colors.onBackground)
                 .fontStyle(theme.typography.paragraph)
