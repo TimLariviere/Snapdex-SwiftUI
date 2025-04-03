@@ -59,6 +59,13 @@ struct RegisterScreen: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 20)
         }
+        .sheet(isPresented: $showAvatarPicker) {
+            AvatarPickerView(selectedIndex: viewModel.avatar) {
+                viewModel.pickAvatar($0)
+                showAvatarPicker = false
+            }
+                .presentationDetents([.fraction(0.75)])
+        }
         .navigationTitle("Create an account")
         .toolbar {
             SnapdexBackButton()

@@ -21,14 +21,18 @@ class RegisterViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        Publishers.CombineLatest4($name, $email, $passwordValidationState, $isRegistering)
-            .map { name, email, passwordValidationState, isRegistering in
+        Publishers.CombineLatest4($avatar, $name, $email, $passwordValidationState)
+            .combineLatest($isRegistering)
+            .map { fields, isRegistering in
+                let (avatar, name, email, passwordValidationState) = fields
+                
                 if (isRegistering) {
                     return false
                 } else {
+                    let isAvatarValid = avatar > -1
                     let isNameValid = UserDataValidator.validateName(name)
                     let isEmailValid = UserDataValidator.validateEmail(email)
-                    return isNameValid && isEmailValid && passwordValidationState.isValid
+                    return isAvatarValid && isNameValid && isEmailValid && passwordValidationState.isValid
                 }
             }
             .sink { [weak self] canRegister in
@@ -45,5 +49,9 @@ class RegisterViewModel: ObservableObject {
         isRegistering = false
         
         didRegister.send()
+    }
+    
+    func pickAvatar(_ avatar: Int) {
+        self.avatar = avatar
     }
 }
