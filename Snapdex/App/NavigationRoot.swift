@@ -3,6 +3,7 @@ import SwiftUI
 enum RootNavigation {
     case login
     case register
+    case forgotPassword
 }
 
 struct NavigationRoot: View {
@@ -23,31 +24,38 @@ struct NavigationRoot: View {
                     LoginScreen(
                         onRegisterClick: {
                             path.append(.register)
+                        },
+                        onForgotPasswordClick: {
+                            path.append(.forgotPassword)
                         }
                     )
                 }
             }
             .navigationDestination(for: RootNavigation.self) { destination in
                 switch destination {
-                case .login:
-                    LoginScreen(
-                        onRegisterClick: {
-                            path.append(.register)
-                        }
-                    )
-                    .navigationBarBackButtonHidden()
-                    .navigationBarTitleDisplayMode(.inline)
-                case .register:
-                    RegisterScreen(
-                        onBack: {
-                            path.removeLast()
-                        },
-                        onSuccessfulRegistration: {
-                            
-                        }
-                    )
-                    .navigationBarBackButtonHidden()
-                    .navigationBarTitleDisplayMode(.inline)
+                    case .login:
+                        LoginScreen(
+                            onRegisterClick: {
+                                path.append(.register)
+                            },
+                            onForgotPasswordClick: {
+                                path.append(.forgotPassword)
+                            }
+                        )
+                        .navigationBarBackButtonHidden()
+                        .navigationBarTitleDisplayMode(.inline)
+                    case .register:
+                        RegisterScreen(
+                            onSuccessfulRegistration: {
+                                
+                            }
+                        )
+                        .navigationBarBackButtonHidden()
+                        .navigationBarTitleDisplayMode(.inline)
+                    case .forgotPassword:
+                        ForgotPasswordScreen()
+                        .navigationBarBackButtonHidden()
+                        .navigationBarTitleDisplayMode(.inline)
                 }
             }
             .navigationBarBackButtonHidden()

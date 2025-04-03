@@ -2,12 +2,14 @@ import SwiftUI
 
 struct LoginScreen: View {
     private let onRegisterClick: () -> Void
+    private let onForgotPasswordClick: () -> Void
     
     @Environment(\.theme) private var theme
     @StateObject private var viewModel = LoginViewModel()
 
-    init(onRegisterClick: @escaping () -> Void) {
+    init(onRegisterClick: @escaping () -> Void, onForgotPasswordClick: @escaping () -> Void) {
         self.onRegisterClick = onRegisterClick
+        self.onForgotPasswordClick = onForgotPasswordClick
     }
     
     var body: some View {
@@ -38,7 +40,7 @@ struct LoginScreen: View {
                     )
                     
                     SnapdexLinkButton("Forgot password?") {
-                        
+                        onForgotPasswordClick()
                     }
                 }
                 
@@ -63,7 +65,8 @@ struct LoginScreen: View {
 #Preview {
     PreviewView {
         LoginScreen(
-            onRegisterClick: {}
+            onRegisterClick: {},
+            onForgotPasswordClick: {}
         )
     }
 }

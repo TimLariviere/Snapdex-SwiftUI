@@ -1,15 +1,13 @@
 import SwiftUI
 
 struct RegisterScreen: View {
-    private let onBack: () -> Void
     private let onSuccessfulRegistration: () -> Void
     
     @StateObject private var viewModel = RegisterViewModel()
     @State private var showAvatarPicker = false
     @Environment(\.theme) private var theme
     
-    init(onBack: @escaping () -> Void, onSuccessfulRegistration: @escaping () -> Void) {
-        self.onBack = onBack
+    init(onSuccessfulRegistration: @escaping () -> Void) {
         self.onSuccessfulRegistration = onSuccessfulRegistration
     }
     
@@ -58,20 +56,20 @@ struct RegisterScreen: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 20)
-        }
-        .sheet(isPresented: $showAvatarPicker) {
-            AvatarPickerView(selectedIndex: viewModel.avatar) {
-                viewModel.pickAvatar($0)
-                showAvatarPicker = false
-            }
+            .sheet(isPresented: $showAvatarPicker) {
+                AvatarPickerView(selectedIndex: viewModel.avatar) {
+                    viewModel.pickAvatar($0)
+                    showAvatarPicker = false
+                }
                 .presentationDetents([.fraction(0.75)])
-        }
-        .navigationTitle("Create an account")
-        .toolbar {
-            SnapdexBackButton()
-        }
-        .onReceive(viewModel.didRegister) {
-            onSuccessfulRegistration()
+            }
+            .navigationTitle("Create an account")
+            .toolbar {
+                SnapdexBackButton()
+            }
+            .onReceive(viewModel.didRegister) {
+                onSuccessfulRegistration()
+            }
         }
     }
     
@@ -104,7 +102,6 @@ struct RegisterScreen: View {
 #Preview {
     PreviewView {
         RegisterScreen(
-            onBack: {},
             onSuccessfulRegistration: {}
         )
     }
