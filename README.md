@@ -1,5 +1,8 @@
 # Snapdex - SwiftUI Edition
 
+_Check out [Snapdex – Compose Edition](https://github.com/TimLariviere/Snapdex-Compose) to see my Android development in action._
+
+
 <p align="center">
   <img src="images/hero.png" height="300">
 </p>
@@ -26,39 +29,36 @@ Snapdex is a production-quality **Pokédex-style app** built with Swift and Swif
 
 ## 🛠️ Technical Highlights
 
-I'm planning to use the following technologies
+I'm planning to use the following technologies:
 
 ### Core Technologies
-- Swift 6.1
+- Swift 6+
 - SwiftUI
-- Xcode 16+
-- Combine for reactive state management
+- Fastlane
 
-### Architecture & Patterns
-- MVVM architecture
-- Repository pattern
-- Dependency injection
+### Architecture & Design Patterns
+- MVVM Architecture
+- Repository Pattern
+- Dependency Injection
 
 ### Networking & Data
-- `URLSession` + `Async/Await` for API calls
-- `Codable` for JSON parsing
-- **Firebase Firestore** for real-time cloud data
-- **Firebase Authentication** for sign-in
-- `UserDefaults` and `@AppStorage` for local preferences
+- Alamofire: HTTP client
+- Realm: Local database with offline-first approach
+- Firebase Firestore: Cloud data synchronization
 
-### AI & Image Processing
-- **TensorFlow Lite** for fast on-device Pokémon recognition (via [TensorFlowLiteSwift](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/experimental/swift))
-- **OpenAI API** for high-accuracy fallback recognition
-- `PhotosUI` for image capture and library access
+### Authentication & Security
+- Firebase Authentication
+- Cryptography: Secure encrypted storage for OpenAI API keys
 
-### Analytics & Beta Testing
-- Firebase Analytics for insights
-- Firebase Crashlytics for error reporting
-- Firebase App Distribution for internal testing
+### Image Processing
+- TensorFlow Lite: On-device Pokemon recognition
+- OpenAI API: Cloud-based recognition for improved accuracy
+- Kingfisher: Image loading library with caching support
 
-### Security
-- OpenAI API key stored securely using the Keychain
-- Firebase Authentication (email, anonymous, Apple Sign-In)
+### Analytics & Monitoring
+- Firebase Analytics
+- Firebase Crashlytics
+- Firebase App Distribution: Beta testing and deployment
 
 ## 📱 How to Build
 
