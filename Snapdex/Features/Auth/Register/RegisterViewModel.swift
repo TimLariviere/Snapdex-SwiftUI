@@ -9,6 +9,7 @@ class RegisterViewModel: ObservableObject {
     @Published var passwordValidationState = PasswordValidationState()
     @Published var isRegistering: Bool = false
     @Published var canRegister: Bool = false
+    @Published var registerError: RegisterError? = nil
     
     let didRegister = PassthroughSubject<Void, Never>()
     
@@ -57,15 +58,17 @@ class RegisterViewModel: ObservableObject {
     private func performRegister() async {
         await MainActor.run { isRegistering = true }
         
-        let result = await userRepository.sendPasswordResetEmail(email: email)
+        let result = await userRepository.register(avatarId: avatar, name: name, email: email, password: password)
         
-        await MainActor.run { isRegistering = false }
-        
-        switch result {
-            case .success(_):
-                await MainActor.run { didRegister.send() }
-            case .failure(let error):
-                ()
+        await MainActor.run {
+            isRegistering = false
+            
+            switch result {
+                case .success(_):
+                    didRegister.send()
+                case .failure(let error):
+                    registerError = error
+            }
         }
     }
 }

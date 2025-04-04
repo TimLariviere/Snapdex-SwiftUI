@@ -24,6 +24,8 @@ struct ForgotPasswordScreen: View {
                 
                 Spacer()
                 
+                errorBanner
+                
                 SnapdexPrimaryButton(
                     "Send password reset link",
                     enabled: viewModel.canSendEmail,
@@ -58,6 +60,18 @@ struct ForgotPasswordScreen: View {
                 dismiss()
             }
         )
+    }
+    
+    var errorBanner: some View {
+        let errorMessage: String? =
+            switch viewModel.sendEmailError {
+                case .none: .none
+                case .noSuchEmail: "No such email exists"
+                case .invalidEmail: "Invalid email format"
+                case .sendFailed: "Send password reset email failed"
+            }
+        
+        return ErrorBanner(errorMessage)
     }
 }
 

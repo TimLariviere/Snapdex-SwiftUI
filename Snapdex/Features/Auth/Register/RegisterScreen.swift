@@ -47,6 +47,8 @@ struct RegisterScreen: View {
                 
                 Spacer()
                 
+                errorBanner
+                
                 SnapdexPrimaryButton(
                     "Create account",
                     enabled: viewModel.canRegister,
@@ -97,6 +99,19 @@ struct RegisterScreen: View {
         .onTapGesture {
             showAvatarPicker = true
         }
+    }
+    
+    var errorBanner: some View {
+        let errorMessage: String? =
+            switch viewModel.registerError {
+                case .none: .none
+                case .invalidEmail: "Invalid email format"
+                case .invalidPassword: "Password is too weak"
+                case .emailAlreadyUsed: "Email already used"
+                case .accountCreationFailed: "Failed to register"
+            }
+        
+        return ErrorBanner(errorMessage)
     }
 }
 

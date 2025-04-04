@@ -5,6 +5,7 @@ class ForgotPasswordViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var isSendingEmail: Bool = false
     @Published var canSendEmail: Bool = false
+    @Published var sendEmailError: SendPasswordResetEmailError? = .none
     
     let didSentEmail = PassthroughSubject<Void, Never>()
     
@@ -34,13 +35,13 @@ class ForgotPasswordViewModel: ObservableObject {
         
         let result = await userRepository.sendPasswordResetEmail(email: email)
         
-        await MainActor.run { isSendingEmail = false }
-        
-        switch result {
-            case .success(_):
-                await MainActor.run { didSentEmail.send() }
-            case .failure(let error):
-                ()
+        await MainActor.run {
+            isSendingEmail = false
+            
+            switch result {
+                case .success(_): didSentEmail.send()
+                case .failure(let error): sendEmailError = error
+            }
         }
     }
 }

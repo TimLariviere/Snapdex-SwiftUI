@@ -4,7 +4,8 @@ class LoginViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var canLogin = false
-    @Published var isLoginIn = false
+    @Published var isLoggingIn = false
+    @Published var loginError: LoginError? = nil
     
     let didLogin = PassthroughSubject<Void, Never>()
     
@@ -31,23 +32,17 @@ class LoginViewModel: ObservableObject {
     }
     
     private func performLogin() async {
-        await MainActor.run { isLoginIn = true }
+        await MainActor.run { isLoggingIn = true }
         
         let result = await userRepository.login(email: email, password: password)
         
-        await MainActor.run { isLoginIn = false }
-        
-        switch result {
-            case .failure(let error):
-                switch error {
-                    case .invalidCredentials:
-                        ()
-                    case .loginFailed:
-                        ()
-                }
+        await MainActor.run {
+            isLoggingIn = false
             
-            case .success(_):
-                await MainActor.run { didLogin.send() }
+            switch result {
+                case .failure(let error): loginError = error
+                case .success(_): didLogin.send()
+            }
         }
     }
 }

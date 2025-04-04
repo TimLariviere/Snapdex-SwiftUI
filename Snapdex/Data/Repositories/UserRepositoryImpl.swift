@@ -8,15 +8,15 @@ class UserRepositoryImpl: UserRepository {
     }
     
     func register(avatarId: AvatarId, name: String, email: String, password: String) async -> Result<Void, RegisterError> {
-        Result.success(())
+        Result.failure(.emailAlreadyUsed)
     }
     
     func login(email: String, password: String) async -> Result<Void, LoginError> {
-        Result.success(())
+        Result.failure(.loginFailed)
     }
     
     func sendPasswordResetEmail(email: String) async -> Result<Void, SendPasswordResetEmailError> {
-        Result.success(())
+        Result.failure(.noSuchEmail)
     }
     
     func logout() async {

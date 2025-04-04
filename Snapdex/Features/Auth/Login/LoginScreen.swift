@@ -17,7 +17,7 @@ struct LoginScreen: View {
     
     var body: some View {
         SnapdexBackground {
-            VStack {
+            VStack(spacing: 8) {
                 Spacer()
                 
                 VStack(spacing: 0) {
@@ -50,7 +50,9 @@ struct LoginScreen: View {
                 Spacer()
                 
                 VStack(spacing: 16) {
-                    SnapdexPrimaryButton("Log in", enabled: viewModel.canLogin, isBusy: viewModel.isLoginIn) {
+                    errorBanner
+                    
+                    SnapdexPrimaryButton("Log in", enabled: viewModel.canLogin, isBusy: viewModel.isLoggingIn) {
                         viewModel.login()
                     }
                     
@@ -65,6 +67,17 @@ struct LoginScreen: View {
         .onReceive(viewModel.didLogin) { result in
             onLoginSuccessful()
         }
+    }
+    
+    var errorBanner: some View {
+        let errorMessage: String? =
+            switch viewModel.loginError {
+                case .none: .none
+                case .invalidCredentials: "Incorrect email or password"
+                case .loginFailed: "Login failed"
+            }
+        
+        return ErrorBanner(errorMessage)
     }
 }
 
