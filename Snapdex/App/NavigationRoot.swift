@@ -11,22 +11,25 @@ struct NavigationRoot: View {
     }
     
     var body: some View {
-        if isLoggedIn {
+        if !hasSeenIntro {
+            IntroScreen(
+                onContinue: {
+                    hasSeenIntro = true
+                }
+            )
+        } else if !isLoggedIn {
+            AuthNavigation(
+                container: container,
+                hasSeenIntro: hasSeenIntro,
+                onLoggedIn: {
+                    isLoggedIn = true
+                }
+            )
+        } else {
             MainNavigation(
                 container: container,
                 onLoggedOut: {
                     isLoggedIn = false
-                }
-            )
-        } else {
-            AuthNavigation(
-                container: container,
-                hasSeenIntro: hasSeenIntro,
-                onIntroCompleted: {
-                    hasSeenIntro = true
-                },
-                onLoggedIn: {
-                    isLoggedIn = true
                 }
             )
         }

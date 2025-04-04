@@ -1,10 +1,8 @@
 import SwiftUI
 
 enum AuthNavigationPath {
-    case login
     case register
     case forgotPassword
-    case main
 }
 
 struct AuthNavigation: View {
@@ -13,30 +11,32 @@ struct AuthNavigation: View {
     
     private let container: Container
     private let hasSeenIntro: Bool
-    private let onIntroCompleted: () -> Void
     private let onLoggedIn: () -> Void
     
-    init(container: Container, hasSeenIntro: Bool, onIntroCompleted: @escaping () -> Void, onLoggedIn: @escaping () -> Void) {
+    init(container: Container, hasSeenIntro: Bool, onLoggedIn: @escaping () -> Void) {
         self.container = container
         self.hasSeenIntro = hasSeenIntro
-        self.onIntroCompleted = onIntroCompleted
         self.onLoggedIn = onLoggedIn
     }
     
     var body: some View {
         NavigationStack(path: $path) {
-            Group {
-                if !hasSeenIntro {
-                    IntroScreen(onContinue: onIntroCompleted)
-                } else {
-                    loginScreen
+            LoginScreen(
+                container: container,
+                onRegisterClick: {
+                    path.append(.register)
+                },
+                onForgotPasswordClick: {
+                    path.append(.forgotPassword)
+                },
+                onLoginSuccessful: {
+                    onLoggedIn()
                 }
-            }
+            )
             .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: AuthNavigationPath.self) { destination in
                 switch destination {
-                    case .login:
-                        loginScreen
                     case .register:
                         RegisterScreen(
                             onSuccessfulRegistration: {
@@ -49,8 +49,6 @@ struct AuthNavigation: View {
                         ForgotPasswordScreen()
                         .navigationBarBackButtonHidden()
                         .navigationBarTitleDisplayMode(.inline)
-                    case .main:
-                        MainScreen()
                 }
             }
         }
@@ -64,22 +62,5 @@ struct AuthNavigation: View {
             
             UINavigationBar.appearance().standardAppearance = appearance
         }
-    }
-    
-    var loginScreen: some View {
-        LoginScreen(
-            container: container,
-            onRegisterClick: {
-                path.append(.register)
-            },
-            onForgotPasswordClick: {
-                path.append(.forgotPassword)
-            },
-            onLoginSuccessful: {
-                onLoggedIn()
-            }
-        )
-        .navigationBarBackButtonHidden()
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
