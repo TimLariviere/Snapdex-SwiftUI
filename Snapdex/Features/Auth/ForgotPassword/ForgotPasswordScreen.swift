@@ -2,8 +2,12 @@ import SwiftUI
 
 struct ForgotPasswordScreen: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = ForgotPasswordViewModel()
+    @StateObject private var viewModel: ForgotPasswordViewModel
     @State private var showEmailSent = false
+    
+    init(container: Container) {
+        self._viewModel = StateObject(wrappedValue: ForgotPasswordViewModel(container: container))
+    }
     
     var body: some View {
         SnapdexBackground {
@@ -25,10 +29,7 @@ struct ForgotPasswordScreen: View {
                     enabled: viewModel.canSendEmail,
                     isBusy: viewModel.isSendingEmail
                 ) {
-                    Task { @MainActor in
-                        let result = await viewModel.sendPasswordResetEmail()
-                        showEmailSent = result
-                    }
+                    viewModel.sendPasswordResetEmail()
                 }
             }
             .padding(.horizontal, 16)
@@ -42,6 +43,9 @@ struct ForgotPasswordScreen: View {
             if (showEmailSent) {
                 emailSentDialog
             }
+        }
+        .onReceive(viewModel.didSentEmail) {
+            showEmailSent = true
         }
     }
     
@@ -59,6 +63,6 @@ struct ForgotPasswordScreen: View {
 
 #Preview {
     PreviewView {
-        ForgotPasswordScreen()
+        ForgotPasswordScreen(container: Container())
     }
 }

@@ -62,7 +62,7 @@ struct LoginScreen: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 20)
         }
-        .onReceive(viewModel.didFinishLogin) { result in
+        .onReceive(viewModel.didLogin) { result in
             onLoginSuccessful()
         }
     }

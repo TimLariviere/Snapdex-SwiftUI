@@ -3,11 +3,12 @@ import SwiftUI
 struct RegisterScreen: View {
     private let onSuccessfulRegistration: () -> Void
     
-    @StateObject private var viewModel = RegisterViewModel()
+    @StateObject private var viewModel: RegisterViewModel
     @State private var showAvatarPicker = false
     @Environment(\.theme) private var theme
     
-    init(onSuccessfulRegistration: @escaping () -> Void) {
+    init(container: Container, onSuccessfulRegistration: @escaping () -> Void) {
+        self._viewModel = StateObject(wrappedValue: RegisterViewModel(container: container))
         self.onSuccessfulRegistration = onSuccessfulRegistration
     }
     
@@ -102,6 +103,7 @@ struct RegisterScreen: View {
 #Preview {
     PreviewView {
         RegisterScreen(
+            container: Container(),
             onSuccessfulRegistration: {}
         )
     }

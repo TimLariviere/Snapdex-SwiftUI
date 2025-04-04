@@ -6,7 +6,7 @@ class LoginViewModel: ObservableObject {
     @Published var canLogin = false
     @Published var isLoginIn = false
     
-    var didFinishLogin = PassthroughSubject<Void, Never>()
+    let didLogin = PassthroughSubject<Void, Never>()
     
     private let userRepository: UserRepository
     private var cancellables = Set<AnyCancellable>()
@@ -47,7 +47,7 @@ class LoginViewModel: ObservableObject {
                 }
             
             case .success(_):
-                await MainActor.run { didFinishLogin.send() }
+                await MainActor.run { didLogin.send() }
         }
     }
 }

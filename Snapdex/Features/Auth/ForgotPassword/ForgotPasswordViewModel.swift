@@ -6,9 +6,14 @@ class ForgotPasswordViewModel: ObservableObject {
     @Published var isSendingEmail: Bool = false
     @Published var canSendEmail: Bool = false
     
+    let didSentEmail = PassthroughSubject<Void, Never>()
+    
+    private let userRepository: UserRepository
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
+    init(container: Container) {
+        userRepository = container.userRepository
+        
         Publishers.CombineLatest($email, $isSendingEmail)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] email, isSendingEmail in
@@ -18,13 +23,24 @@ class ForgotPasswordViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func sendPasswordResetEmail() async -> Bool {
+    func sendPasswordResetEmail() {
+        Task {
+            await performSendPasswordResetEmail()
+        }
+    }
+    
+    private func performSendPasswordResetEmail() async {
         await MainActor.run { isSendingEmail = true }
         
-        // do stuff
+        let result = await userRepository.sendPasswordResetEmail(email: email)
         
         await MainActor.run { isSendingEmail = false }
         
-        return true
+        switch result {
+            case .success(_):
+                await MainActor.run { didSentEmail.send() }
+            case .failure(let error):
+                ()
+        }
     }
 }

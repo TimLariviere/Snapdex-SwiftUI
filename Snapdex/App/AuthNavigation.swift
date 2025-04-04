@@ -39,14 +39,17 @@ struct AuthNavigation: View {
                 switch destination {
                     case .register:
                         RegisterScreen(
+                            container: container,
                             onSuccessfulRegistration: {
-                                
+                                onLoggedIn()
                             }
                         )
                         .navigationBarBackButtonHidden()
                         .navigationBarTitleDisplayMode(.inline)
                     case .forgotPassword:
-                        ForgotPasswordScreen()
+                        ForgotPasswordScreen(
+                            container: container
+                        )
                         .navigationBarBackButtonHidden()
                         .navigationBarTitleDisplayMode(.inline)
                 }

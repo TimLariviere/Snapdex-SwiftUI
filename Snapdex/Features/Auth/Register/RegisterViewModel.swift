@@ -10,11 +10,14 @@ class RegisterViewModel: ObservableObject {
     @Published var isRegistering: Bool = false
     @Published var canRegister: Bool = false
     
-    var didRegister = PassthroughSubject<Void, Never>()
+    let didRegister = PassthroughSubject<Void, Never>()
     
+    private let userRepository: UserRepository
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
+    init(container: Container) {
+        userRepository = container.userRepository
+        
         $password
             .sink { [weak self] value in
                 self?.passwordValidationState = UserDataValidator.validatePassword(value)
@@ -42,16 +45,27 @@ class RegisterViewModel: ObservableObject {
     }
     
     func register() {
-        isRegistering = true
-        
-        // do stuff
-        
-        isRegistering = false
-        
-        didRegister.send()
+        Task {
+            await performRegister()
+        }
     }
     
     func pickAvatar(_ avatar: Int) {
         self.avatar = avatar
+    }
+    
+    private func performRegister() async {
+        await MainActor.run { isRegistering = true }
+        
+        let result = await userRepository.sendPasswordResetEmail(email: email)
+        
+        await MainActor.run { isRegistering = false }
+        
+        switch result {
+            case .success(_):
+                await MainActor.run { didRegister.send() }
+            case .failure(let error):
+                ()
+        }
     }
 }
