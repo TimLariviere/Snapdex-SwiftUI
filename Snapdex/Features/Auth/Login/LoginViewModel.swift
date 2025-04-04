@@ -6,9 +6,14 @@ class LoginViewModel: ObservableObject {
     @Published var canLogin = false
     @Published var isLoginIn = false
     
+    var didFinishLogin = PassthroughSubject<Void, Never>()
+    
+    private let userRepository: UserRepository
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
+    init(container: Container) {
+        userRepository = container.userRepository
+        
         Publishers.CombineLatest($email, $password)
             .map { email, password in
                 return email.isNotBlank && password.isNotBlank
@@ -20,10 +25,29 @@ class LoginViewModel: ObservableObject {
     }
     
     func login() {
-        isLoginIn = true
+        Task {
+            await performLogin()
+        }
+    }
+    
+    private func performLogin() async {
+        await MainActor.run { isLoginIn = true }
         
-        // do stuff
+        let result = await userRepository.login(email: email, password: password)
         
-        isLoginIn = false
+        await MainActor.run { isLoginIn = false }
+        
+        switch result {
+            case .failure(let error):
+                switch error {
+                    case .invalidCredentials:
+                        ()
+                    case .loginFailed:
+                        ()
+                }
+            
+            case .success(_):
+                await MainActor.run { didFinishLogin.send() }
+        }
     }
 }
