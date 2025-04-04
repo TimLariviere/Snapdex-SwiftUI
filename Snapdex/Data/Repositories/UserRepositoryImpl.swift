@@ -1,9 +1,36 @@
 import Combine
 
 class UserRepositoryImpl: UserRepository {
-    func observeCurrentUser() -> AnyPublisher<User?, any Error> {
-        Just(nil)
-            .setFailureType(to: Error.self)
+    private let authService: AuthService
+    private let database: SnapdexDatabase
+    private let localUsers: LocalUserDataSource
+    
+    init(authService: AuthService, database: SnapdexDatabase, localUsers: LocalUserDataSource) {
+        self.authService = authService
+        self.database = database
+        self.localUsers = localUsers
+    }
+    
+    func observeCurrentUser() -> AnyPublisher<User?, Error> {
+        authService.$currentUser
+            .flatMap { user in
+                guard let user = user else {
+                    return Just<User?>(nil)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+                
+                return self.localUsers.observeById(id: user.uid)
+                    .publisher(in: self.database.dbQueue)
+                    .map { userEntity -> User? in
+                        if let userEntity = userEntity {
+                            return User(id: userEntity.id, avatarId: userEntity.avatarId, name: userEntity.name, email: userEntity.email)
+                        } else {
+                            return nil
+                        }
+                    }
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
     
@@ -16,7 +43,17 @@ class UserRepositoryImpl: UserRepository {
     }
     
     func sendPasswordResetEmail(email: String) async -> Result<Void, SendPasswordResetEmailError> {
-        Result.failure(.noSuchEmail)
+        let result = await authService.sendPasswordResetEmail(email: email)
+        
+        return switch result {
+            case .success(_): .success(())
+            case .failure(.firebase(.userNotFound)): .failure(.noSuchEmail)
+            case .failure(.firebase(.invalidEmail)): .failure(.invalidEmail)
+            case .failure(.firebase(.networkError)): .failure(.sendFailed)
+            default:
+                // Crashlytics here
+                .failure(.sendFailed)
+        }
     }
     
     func logout() async {

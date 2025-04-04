@@ -93,3 +93,7 @@ Temporary Items
 .apdisk
 
 *.user
+
+GoogleService-Info.plist
+
+Snapdex/Resources/snapdex.db

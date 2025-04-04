@@ -15,11 +15,14 @@
 		27468C062D9E849500A2ED98 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C052D9E849500A2ED98 /* FirebaseCrashlytics */; };
 		27468C082D9E849500A2ED98 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 27468C072D9E849500A2ED98 /* FirebaseFirestore */; };
 		27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27468C0D2D9E866700A2ED98 /* CoreML.framework */; };
+		279EC31E2DA03BB100DD825D /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 279EC31D2DA03BB100DD825D /* GRDB */; };
+		279EC3332DA04F3900DD825D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 279EC3322DA04F3900DD825D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		27468C0D2D9E866700A2ED98 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreML.framework; sourceTree = DEVELOPER_DIR; };
 		278673412D9D8A6300C03987 /* Snapdex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapdex.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		279EC3322DA04F3900DD825D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				279EC31E2DA03BB100DD825D /* GRDB in Frameworks */,
 				27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */,
 				27468C022D9E849500A2ED98 /* FirebaseAuth in Frameworks */,
 				27468BFA2D9E834500A2ED98 /* Kingfisher in Frameworks */,
@@ -76,6 +80,7 @@
 				278673432D9D8A6300C03987 /* Snapdex */,
 				27468C0C2D9E866700A2ED98 /* Frameworks */,
 				278673422D9D8A6300C03987 /* Products */,
+				279EC3322DA04F3900DD825D /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +119,7 @@
 				27468C032D9E849500A2ED98 /* FirebaseCore */,
 				27468C052D9E849500A2ED98 /* FirebaseCrashlytics */,
 				27468C072D9E849500A2ED98 /* FirebaseFirestore */,
+				279EC31D2DA03BB100DD825D /* GRDB */,
 			);
 			productName = Snapdex;
 			productReference = 278673412D9D8A6300C03987 /* Snapdex.app */;
@@ -147,6 +153,7 @@
 				27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				27468BF82D9E834500A2ED98 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				279EC31C2DA03BB100DD825D /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 278673422D9D8A6300C03987 /* Products */;
@@ -163,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				279EC3332DA04F3900DD825D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +429,14 @@
 				minimumVersion = 11.11.0;
 			};
 		};
+		279EC31C2DA03BB100DD825D /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -458,6 +474,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		279EC31D2DA03BB100DD825D /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 279EC31C2DA03BB100DD825D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,7 +1,12 @@
 import SwiftUI
+import Firebase
 
 @main
 struct SnapdexApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         let theme = Theme()
         let container = Container()
