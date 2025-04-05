@@ -36,6 +36,15 @@ class AuthService: ObservableObject {
         }
     }
     
+    func signIn(withEmail email: String, password: String) async -> Result<AuthDataResult, AuthServiceError> {
+        do {
+            let authResult = try await auth.signIn(withEmail: email, password: password)
+            return .success(authResult)
+        } catch {
+            return .failure(AuthServiceError(error: error))
+        }
+    }
+    
     func sendPasswordResetEmail(email: String) async -> Result<Void, AuthServiceError> {
         do {
             try await auth.sendPasswordReset(withEmail: email)

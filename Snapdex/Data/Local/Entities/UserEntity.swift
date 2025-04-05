@@ -12,13 +12,17 @@ struct UserEntity: Codable, FetchableRecord, PersistableRecord, Identifiable {
 }
 
 struct UserPokemonEntity: Codable, FetchableRecord, MutablePersistableRecord, Identifiable {
-    var id: Int
+    var id: Int?
     var userId: String
     var pokemonId: Int
     var createdAt: UInt64
     var updatedAt: UInt64
     
     static let databaseTableName: String = "UserPokemons"
+    
+    mutating func didInsert(with rowID: Int, for column: String?) {
+        self.id = rowID
+    }
     
     enum Columns: String, ColumnExpression {
         case userId

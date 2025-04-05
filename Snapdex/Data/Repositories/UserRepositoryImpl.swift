@@ -1,14 +1,24 @@
 import Combine
+import FirebaseAnalytics
+import FirebaseCrashlytics
 
 class UserRepositoryImpl: UserRepository {
+    private let crashlytics: Crashlytics
     private let authService: AuthService
     private let database: SnapdexDatabase
     private let localUsers: LocalUserDataSource
+    private let localUserPokemons: LocalUserPokemonDataSource
+    private let remoteUsers: RemoteUserDataSource
+    private let remoteUserPokemons: RemoteUserPokemonDataSource
     
-    init(authService: AuthService, database: SnapdexDatabase, localUsers: LocalUserDataSource) {
+    init(crashlytics: Crashlytics, authService: AuthService, database: SnapdexDatabase, localUsers: LocalUserDataSource, localUserPokemons: LocalUserPokemonDataSource, remoteUsers: RemoteUserDataSource, remoteUserPokemons: RemoteUserPokemonDataSource) {
+        self.crashlytics = crashlytics
         self.authService = authService
         self.database = database
         self.localUsers = localUsers
+        self.localUserPokemons = localUserPokemons
+        self.remoteUsers = remoteUsers
+        self.remoteUserPokemons = remoteUserPokemons
     }
     
     func observeCurrentUser() -> AnyPublisher<User?, Error> {
@@ -39,7 +49,80 @@ class UserRepositoryImpl: UserRepository {
     }
     
     func login(email: String, password: String) async -> Result<Void, LoginError> {
-        Result.failure(.loginFailed)
+        let authResult = await authService.signIn(withEmail: email, password: password)
+        
+        guard case .success(let auth) = authResult else {
+            if case let .failure(error) = authResult {
+                switch error {
+                    case .firebase(.invalidCredential): return .failure(.invalidCredentials)
+                    case .firebase(.networkError): return .failure(.loginFailed)
+                    default:
+                        crashlytics.record(error: error, userInfo: ["email": email])
+                        return .failure(.loginFailed)
+                }
+            }
+            return .failure(.loginFailed)
+        }
+        
+        let userId = auth.user.uid
+        Analytics.setUserID(userId)
+        
+        let remoteUserResult = await remoteUsers.get(id: userId)
+        
+        guard case .success(let remoteUser?) = remoteUserResult else {
+            switch remoteUserResult {
+                case .success(nil):
+                    Analytics.logEvent("user_not_found_in_remote", parameters: ["email": email ])
+                case .failure(let error):
+                    switch error {
+                        case .firestore(.cancelled), .firestore(.unavailable), .firestore(.deadlineExceeded): ()
+                        default: crashlytics.record(error: error, userInfo: ["userId": userId])
+                    }
+                default: break
+            }
+            return .failure(.loginFailed)
+        }
+        
+        let upsertResult = await localUsers.upsert(
+            entity: UserEntity(
+                id: remoteUser.id!,
+                avatarId: remoteUser.avatarId,
+                name: remoteUser.name,
+                email: email,
+                createdAt: remoteUser.createdAt,
+                updatedAt: remoteUser.updatedAt
+            )
+        )
+        
+        guard case .success(_) = upsertResult else {
+            if case let .failure(error) = upsertResult {
+                crashlytics.record(error: error)
+            }
+            return.failure(.loginFailed)
+        }
+
+        
+        let remoteUserPokemonsResult = await remoteUserPokemons.getAllForUser(userId: userId)
+
+        if case .success(let remoteUserPokemons) = remoteUserPokemonsResult {
+            let insertAllResult = await localUserPokemons.insertAll(
+                pokemons: remoteUserPokemons.map {
+                    UserPokemonEntity(
+                        id: nil,
+                        userId: $0.userId,
+                        pokemonId: $0.pokemonId,
+                        createdAt: $0.createdAt,
+                        updatedAt: $0.updatedAt
+                    )
+                }
+            )
+            
+            if case .failure(let error) = insertAllResult {
+                crashlytics.record(error: error)
+            }
+        }
+        
+        return .success(())
     }
     
     func sendPasswordResetEmail(email: String) async -> Result<Void, SendPasswordResetEmailError> {

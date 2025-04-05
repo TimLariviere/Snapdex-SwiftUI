@@ -1,8 +1,10 @@
 import SwiftUI
+import FirebaseAuth
 
 struct NavigationRoot: View {
+    @State private var isLoading = true
+    @State private var isLoggedIn = false
     @AppStorage("hasSeenIntro") private var hasSeenIntro = false
-    @AppStorage("isLoggedIn") private var isLoggedIn = false
     
     private let container: Container
     
@@ -11,6 +13,13 @@ struct NavigationRoot: View {
     }
     
     var body: some View {
+        if isLoading {
+            Text("")
+                .onAppear {
+                    self.isLoggedIn = Auth.auth().currentUser != nil
+                    self.isLoading = false
+                }
+        }
         if !hasSeenIntro {
             IntroScreen(
                 onContinue: {

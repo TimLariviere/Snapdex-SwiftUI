@@ -1,14 +1,23 @@
 import SwiftUI
 import FirebaseAuth
+import FirebaseCrashlytics
+import FirebaseFirestore
 
 class Container: ObservableObject {
     let userRepository: UserRepository
     
     init() {
-        let database = SnapdexDatabase()
-        let authService = AuthService(auth: Auth.auth())
-        let localUserDataSource = LocalUserDataSource(database: database)
+        let auth = Auth.auth()
+        let crashlytics = Crashlytics.crashlytics()
+        let firestore = Firestore.firestore()
         
-        self.userRepository = UserRepositoryImpl(authService: authService, database: database, localUsers: localUserDataSource)
+        let database = SnapdexDatabase()
+        let authService = AuthService(auth: auth)
+        let localUserDataSource = LocalUserDataSource(database: database)
+        let localUserPokemonDataSource = LocalUserPokemonDataSource()
+        let remoteUserDataSource = RemoteUserDataSource(firestore: firestore)
+        let remoteUserPokemonDataSource = RemoteUserPokemonDataSource(firestore: firestore)
+        
+        self.userRepository = UserRepositoryImpl(crashlytics: crashlytics, authService: authService, database: database, localUsers: localUserDataSource, localUserPokemons: localUserPokemonDataSource, remoteUsers: remoteUserDataSource, remoteUserPokemons: remoteUserPokemonDataSource)
     }
 }
