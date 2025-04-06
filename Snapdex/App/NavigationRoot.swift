@@ -19,8 +19,7 @@ struct NavigationRoot: View {
                     self.isLoggedIn = Auth.auth().currentUser != nil
                     self.isLoading = false
                 }
-        }
-        if !hasSeenIntro {
+        } else if !hasSeenIntro {
             IntroScreen(
                 onContinue: {
                     hasSeenIntro = true

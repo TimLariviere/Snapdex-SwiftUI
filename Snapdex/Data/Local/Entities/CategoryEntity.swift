@@ -4,6 +4,7 @@ struct CategoryEntity: Codable, FetchableRecord, TableRecord, Identifiable {
     var id: Int
     
     static let databaseTableName: String = "Categories"
+    static let translations = hasMany(CategoryTranslationEntity.self)
 }
 
 struct CategoryTranslationEntity: Codable, FetchableRecord, TableRecord, Identifiable {

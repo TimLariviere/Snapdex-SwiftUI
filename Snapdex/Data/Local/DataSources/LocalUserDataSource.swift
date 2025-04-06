@@ -44,9 +44,11 @@ class LocalUserDataSource {
         }
     }
     
-    func observeById(id: String) -> ValueObservation<ValueReducers.Fetch<UserEntity?>> {
-        ValueObservation.tracking { db in
+    func observeById(id: String) -> DatabasePublishers.Value<UserEntity?> {
+        let observation = ValueObservation.tracking { db in
             try UserEntity.filter(id: id).fetchOne(db)
         }
+        
+        return observation.publisher(in: database.dbQueue)
     }
 }

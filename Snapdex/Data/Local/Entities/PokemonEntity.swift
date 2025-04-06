@@ -9,6 +9,10 @@ struct PokemonEntity: Codable, FetchableRecord, TableRecord, Identifiable {
     var maleToFemaleRatio: Double
     
     static let databaseTableName: String = "Pokemons"
+    static let translations = hasMany(PokemonTranslationEntity.self)
+    static let types = hasMany(PokemonTypeEntity.self)
+    static let ability = belongsTo(AbilityEntity.self)
+    static let category = belongsTo(CategoryEntity.self)
     
     enum Columns: String, ColumnExpression {
         case categoryId
