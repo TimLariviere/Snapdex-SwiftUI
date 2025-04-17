@@ -7,15 +7,34 @@ enum AuthDestination: Hashable {
 }
 
 public struct AuthCoordinator: View {
-    public init() {}
+    @State private var router = Router<AuthDestination>()
+    
+    let didLogin: @MainActor () -> Void
+    
+    public init(didLogin: @MainActor @escaping () -> Void) {
+        self.didLogin = didLogin
+    }
     
     public var body: some View {
-        LoginScreen()
+        NavigationStack(path: $router.path) {
+            LoginScreen(didLogin: {
+                didLogin()
+            })
+                .navigationDestination(for: AuthDestination.self) { destination in
+                    switch destination {
+                        case .register: RegisterScreen(didRegister: {
+                            didLogin()
+                        })
+                        case .forgotPassword: ForgotPasswordScreen()
+                    }
+                }
+                .environment(router)
+        }
     }
 }
 
 #Preview {
     AppTheme {
-        AuthCoordinator()
+        AuthCoordinator(didLogin: {})
     }
 }

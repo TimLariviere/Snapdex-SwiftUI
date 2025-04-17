@@ -3,8 +3,11 @@ import SnapdexDesignSystem
 
 public struct IntroScreen: View {
     @State private var viewModel = IntroViewModel()
+    private let didComplete: @MainActor () -> Void
     
-    public init() {}
+    public init(didComplete: @MainActor @escaping () -> Void) {
+        self.didComplete = didComplete
+    }
     
     public var body: some View {
         SnapdexBackground {
@@ -34,7 +37,7 @@ public struct IntroScreen: View {
                     if (!isLastPage) {
                         viewModel.next()
                     } else {
-                        // Navigate to Login
+                        didComplete()
                     }
                 }
                 .padding(.horizontal, 20)
@@ -57,6 +60,6 @@ public struct IntroScreen: View {
 
 #Preview {
     AppTheme {
-        IntroScreen()
+        IntroScreen(didComplete: {})
     }
 }

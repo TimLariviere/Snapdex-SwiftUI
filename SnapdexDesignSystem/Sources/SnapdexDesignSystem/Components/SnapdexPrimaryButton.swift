@@ -20,6 +20,8 @@ public struct SnapdexPrimaryButton: View {
     }
 
     public var body: some View {
+        let isEnabled = enabled && !isBusy
+        
         Button {
             action()
         } label: {
@@ -34,11 +36,11 @@ public struct SnapdexPrimaryButton: View {
             .padding(.vertical, 16)
             .frame(height: 48)
             .frame(maxWidth: .infinity)
-            .background(enabled ? theme.colors.primary : theme.colors.onSurface.opacity(0.12))
-            .foregroundStyle(enabled ? theme.colors.onPrimary : theme.colors.onSurface.opacity(0.38))
+            .background(isEnabled ? theme.colors.primary : theme.colors.onSurface.opacity(0.12))
+            .foregroundStyle(isEnabled ? theme.colors.onPrimary : theme.colors.onSurface.opacity(0.38))
             .clipShape(theme.shapes.regular)
         }
-        .disabled(!enabled || isBusy)
+        .disabled(!isEnabled)
     }
 }
 

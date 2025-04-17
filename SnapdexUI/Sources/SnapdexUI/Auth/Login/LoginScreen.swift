@@ -5,6 +5,13 @@ import SnapdexUseCases
 struct LoginScreen: View {
     @State private var viewModel = LoginViewModel(authService: AuthService())
     @Environment(\.theme) private var theme
+    @Environment(Router<AuthDestination>.self) private var router
+    
+    let didLogin: @MainActor () -> Void
+    
+    init(didLogin: @MainActor @escaping () -> Void) {
+        self.didLogin = didLogin
+    }
     
     var body: some View {
         SnapdexBackground {
@@ -37,7 +44,7 @@ struct LoginScreen: View {
                     )
                     
                     SnapdexLinkButton("Forgot password?", enabled: !viewModel.isLoginIn) {
-                        // Navigate to ForgotPassword
+                        router.push(.forgotPassword)
                     }
                 }
                 
@@ -51,14 +58,14 @@ struct LoginScreen: View {
                     }
                     
                     SnapdexLinkButton("Create an account", enabled: !viewModel.isLoginIn) {
-                        // Navigate to CreateAccount
+                        router.push(.register)
                     }
                 }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 20)
             .onReceive(viewModel.didLogin) {
-                // Navigate to Main
+                didLogin()
             }
         }
     }
@@ -66,6 +73,6 @@ struct LoginScreen: View {
 
 #Preview {
     AppTheme {
-        LoginScreen()
+        LoginScreen(didLogin: {})
     }
 }
