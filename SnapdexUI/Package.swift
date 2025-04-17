@@ -23,10 +23,11 @@ let package = Package(
                 "SnapdexDesignSystem",
                 "SnapdexDomain",
                 "SnapdexUseCases"
-            ]//,
-            //resources: [
-            //    .process("Resources")
-            //]
+            ],
+            resources: [
+                .process("Resources/Images.xcassets"),
+                .process("Resources/Colors.xcassets")
+            ]
         )
     ]
 )

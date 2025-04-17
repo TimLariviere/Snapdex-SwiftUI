@@ -18,3 +18,20 @@ extension EnvironmentValues {
         set { self[ThemeKey.self] = newValue }
     }
 }
+
+public struct AppTheme<Content: View>: View {
+    private let content: () -> Content
+    
+    public init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+    
+    public var body: some View {
+        let theme = Theme()
+        
+        content()
+            .environment(\.theme, theme)
+            .foregroundStyle(theme.colors.onBackground)
+            .fontStyle(theme.typography.paragraph)
+    }
+}

@@ -38,7 +38,7 @@ public struct SnapdexTextField: View {
 }
 
 #Preview {
-    PreviewView {
+    AppTheme {
         SnapdexTextField(text: Binding.constant(""), hint: "Email")
             .padding(.horizontal, 40)
     }

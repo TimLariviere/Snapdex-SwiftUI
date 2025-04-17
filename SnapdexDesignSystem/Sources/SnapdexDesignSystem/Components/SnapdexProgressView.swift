@@ -10,5 +10,7 @@ public struct SnapdexProgressView: View {
 }
 
 #Preview {
-    SnapdexProgressView()
+    AppTheme {
+        SnapdexProgressView()
+    }
 }

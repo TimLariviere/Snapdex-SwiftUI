@@ -5,13 +5,13 @@ public struct SnapdexPrimaryButton: View {
     var text: LocalizedStringKey
     var enabled: Bool = true
     var isBusy: Bool = false
-    var action: () -> Void
+    var action: @MainActor () -> Void
 
     public init(
         _ text: LocalizedStringKey,
         enabled: Bool = true,
         isBusy: Bool = false,
-        action: @Sendable @escaping () -> Void
+        action: @MainActor @escaping () -> Void
     ) {
         self.text = text
         self.enabled = enabled
@@ -45,12 +45,9 @@ public struct SnapdexPrimaryButton: View {
 
 
 #Preview {
-    let theme = Theme()
-    Group {
+    AppTheme {
         SnapdexPrimaryButton("Click me") {}
         SnapdexPrimaryButton("Click me", enabled: false) {}
         SnapdexPrimaryButton("Click me", enabled: false, isBusy: true) {}
     }
-    .foregroundStyle(theme.colors.onBackground)
-    .fontStyle(theme.typography.paragraph)
 }

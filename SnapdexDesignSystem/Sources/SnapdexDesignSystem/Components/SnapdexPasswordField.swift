@@ -52,7 +52,7 @@ public struct SnapdexPasswordField: View {
 }
 
 #Preview {
-    PreviewView {
+    AppTheme {
         SnapdexPasswordField(text: Binding.constant(""), hint: "Password")
             .padding(.horizontal, 40)
     }

@@ -25,13 +25,10 @@ public struct SnapdexBackground<Content: View>: View {
     }
 }
 
-#Preview {
-    let theme = Theme()
-    
-    SnapdexBackground {
-        Text("Hello")
+#Preview {    
+    AppTheme {
+        SnapdexBackground {
+            Text("Hello")
+        }
     }
-    .foregroundStyle(theme.colors.onBackground)
-    .fontStyle(theme.typography.paragraph)
-    .environment(\.theme, theme)
 }

@@ -21,7 +21,7 @@ public struct SnapdexLinkButton: View {
 }
 
 #Preview {
-    PreviewView {
+    AppTheme {
         SnapdexLinkButton("Link button") {}
     }
 }

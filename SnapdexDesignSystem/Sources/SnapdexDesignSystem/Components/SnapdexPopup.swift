@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct PopupButton {
     let text: LocalizedStringKey
-    let onClick: () -> Void
+    let onClick: @Sendable () -> Void
     let enabled = true
     let isBusy = false
 }

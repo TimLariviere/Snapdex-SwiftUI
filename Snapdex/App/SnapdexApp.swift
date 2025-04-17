@@ -10,13 +10,10 @@ struct SnapdexApp: App {
     }
     
     var body: some Scene {
-        let theme = Theme()
-        
         WindowGroup {
-            IntroScreen()
-                .environment(\.theme, theme)
-                .foregroundStyle(theme.colors.onBackground)
-                .fontStyle(theme.typography.paragraph)
+            AppTheme {
+                IntroScreen()
+            }
         }
     }
 }

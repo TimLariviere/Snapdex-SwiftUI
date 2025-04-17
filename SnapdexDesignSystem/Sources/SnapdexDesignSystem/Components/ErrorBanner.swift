@@ -40,7 +40,7 @@ public struct ErrorBanner: View {
 }
 
 #Preview {
-    PreviewView {
+    AppTheme {
         ErrorBanner(nil)
         ErrorBanner("Invalid error")
     }

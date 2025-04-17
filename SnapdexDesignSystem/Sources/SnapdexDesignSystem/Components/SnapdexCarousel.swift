@@ -23,7 +23,9 @@ public struct SnapdexCarousel<Content: View>: View {
 }
 
 #Preview {
-    SnapdexCarousel(pageCount: 3, currentPage: Binding.constant(1)) { index in
-        Text(index.formatted())
+    AppTheme {
+        SnapdexCarousel(pageCount: 3, currentPage: Binding.constant(1)) { index in
+            Text(index.formatted())
+        }
     }
 }

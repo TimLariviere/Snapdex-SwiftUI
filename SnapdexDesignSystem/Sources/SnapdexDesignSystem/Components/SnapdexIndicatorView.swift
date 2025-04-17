@@ -31,8 +31,10 @@ public struct SnapdexIndicatorView: View {
 }
 
 #Preview {
-    SnapdexIndicatorView(
-        pageCount: 3,
-        currentPage: Binding.constant(1)
-    )
+    AppTheme {
+        SnapdexIndicatorView(
+            pageCount: 3,
+            currentPage: Binding.constant(1)
+        )
+    }
 }

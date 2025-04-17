@@ -43,12 +43,9 @@ public struct SnapdexSecondaryButton: View {
 }
 
 #Preview {
-    let theme = Theme()
-    Group {
+    AppTheme {
         SnapdexSecondaryButton("Click me") {}
         SnapdexSecondaryButton("Click me", enabled: false) {}
         SnapdexSecondaryButton("Click me", enabled: false, isBusy: true) {}
     }
-    .foregroundStyle(theme.colors.onBackground)
-    .fontStyle(theme.typography.paragraph)
 }
