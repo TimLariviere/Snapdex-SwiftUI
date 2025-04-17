@@ -21,9 +21,7 @@ public struct SnapdexPrimaryButton: View {
 
     public var body: some View {
         Button {
-            if enabled && !isBusy {
-                action()
-            }
+            action()
         } label: {
             ZStack {
                 Text(text)
@@ -40,6 +38,7 @@ public struct SnapdexPrimaryButton: View {
             .foregroundStyle(enabled ? theme.colors.onPrimary : theme.colors.onSurface.opacity(0.38))
             .clipShape(theme.shapes.regular)
         }
+        .disabled(!enabled || isBusy)
     }
 }
 

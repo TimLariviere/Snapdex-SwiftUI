@@ -24,7 +24,7 @@ public struct SnapdexPasswordField: View {
             Button {
                 isPasswordVisible = !isPasswordVisible
             } label: {
-                Image(isPasswordVisible ? "EyeClosed" : "Eye")
+                Image(isPasswordVisible ? "EyeClosed" : "Eye", bundle: .module)
             }
         }
         .tint(theme.colors.primary)

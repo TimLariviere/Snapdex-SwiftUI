@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct SnapdexLinkButton: View {
+    @Environment(\.theme) private var theme
+    
     var textKey: LocalizedStringKey
     var enabled: Bool
     var action: () -> Void
@@ -15,6 +17,7 @@ public struct SnapdexLinkButton: View {
         Button(action: action) {
             Text(textKey)
                 .underline()
+                .foregroundStyle(theme.colors.primary)
         }
         .disabled(!enabled)
     }

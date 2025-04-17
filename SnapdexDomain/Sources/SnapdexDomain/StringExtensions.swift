@@ -1,4 +1,4 @@
-extension String {
+public extension String {
     var isNotBlank: Bool {
         return !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

@@ -1,11 +1,11 @@
 import SwiftUI
 
 public struct ErrorBanner: View {
-    let errorMessage: String?
+    let errorMessage: LocalizedStringKey?
     
     @Environment(\.theme) private var theme
     
-    public init(_ errorMessage: String?) {
+    public init(_ errorMessage: LocalizedStringKey?) {
         self.errorMessage = errorMessage
     }
     
@@ -13,7 +13,7 @@ public struct ErrorBanner: View {
         ZStack {
             if let errorMessage = errorMessage {
                 HStack(spacing: 4) {
-                    Image("Error")
+                    Image("Error", bundle: .module)
                         .resizable()
                         .scaledToFit()
                     

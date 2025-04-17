@@ -34,7 +34,7 @@ public struct IntroScreen: View {
                     if (!isLastPage) {
                         viewModel.next()
                     } else {
-                        
+                        // Navigate to Login
                     }
                 }
                 .padding(.horizontal, 20)

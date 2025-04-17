@@ -8,11 +8,13 @@ public enum FontFamily: String, Sendable {
 
 public struct FontStyle: Sendable {
     var fontFamily: FontFamily
+    var fontWeight: Font.Weight
     var fontSize: Int
     var lineHeight: Int
     
-    public init(fontFamily: FontFamily, fontSize: Int, lineHeight: Int) {
+    public init(fontFamily: FontFamily, fontWeight: Font.Weight, fontSize: Int, lineHeight: Int) {
         self.fontFamily = fontFamily
+        self.fontWeight = fontWeight
         self.fontSize = fontSize
         self.lineHeight = lineHeight
     }
@@ -20,42 +22,50 @@ public struct FontStyle: Sendable {
 
 public struct Typography: Sendable {
     public let heading1 = FontStyle(
-        fontFamily: FontFamily.poppinsSemibold,
+        fontFamily: .poppinsSemibold,
+        fontWeight: .semibold,
         fontSize: 32,
         lineHeight: 32
     )
     public let heading2 = FontStyle(
-        fontFamily: FontFamily.poppinsMedium,
+        fontFamily: .poppinsMedium,
+        fontWeight: .medium,
         fontSize: 24,
         lineHeight: 24
     )
     public let heading3 = FontStyle(
-        fontFamily: FontFamily.poppinsSemibold,
+        fontFamily: .poppinsSemibold,
+        fontWeight: .semibold,
         fontSize: 18,
         lineHeight: 20
     )
     public let paragraph = FontStyle(
-        fontFamily: FontFamily.poppinsRegular,
+        fontFamily: .poppinsRegular,
+        fontWeight: .regular,
         fontSize: 14,
         lineHeight: 17
     )
     public let primaryButton = FontStyle(
-        fontFamily: FontFamily.poppinsMedium,
+        fontFamily: .poppinsMedium,
+        fontWeight: .medium,
         fontSize: 24,
         lineHeight: 28
     )
     public let secondaryButton = FontStyle(
-        fontFamily: FontFamily.poppinsRegular,
+        fontFamily: .poppinsRegular,
+        fontWeight: .regular,
         fontSize: 18,
         lineHeight: 21
     )
     public let smallLabel = FontStyle(
-        fontFamily: FontFamily.poppinsRegular,
+        fontFamily: .poppinsRegular,
+        fontWeight: .regular,
         fontSize: 10,
         lineHeight: 10
     )
     public let largeLabel = FontStyle(
-        fontFamily: FontFamily.poppinsSemibold,
+        fontFamily: .poppinsSemibold,
+        fontWeight: .semibold,
         fontSize: 14,
         lineHeight: 20
     )

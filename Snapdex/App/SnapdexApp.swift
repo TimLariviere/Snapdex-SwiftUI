@@ -12,7 +12,7 @@ struct SnapdexApp: App {
     var body: some Scene {
         WindowGroup {
             AppTheme {
-                IntroScreen()
+                AuthCoordinator()
             }
         }
     }
