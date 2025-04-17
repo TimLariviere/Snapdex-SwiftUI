@@ -17,12 +17,22 @@
 		27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27468C0D2D9E866700A2ED98 /* CoreML.framework */; };
 		279EC31E2DA03BB100DD825D /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 279EC31D2DA03BB100DD825D /* GRDB */; };
 		279EC3332DA04F3900DD825D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 279EC3322DA04F3900DD825D /* GoogleService-Info.plist */; };
+		27EDB2E22DB1112A00615643 /* SnapdexDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2E12DB1112A00615643 /* SnapdexDesignSystem */; };
+		27EDB2E52DB1113400615643 /* SnapdexDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2E42DB1113400615643 /* SnapdexDomain */; };
+		27EDB2E82DB1113F00615643 /* SnapdexData in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2E72DB1113F00615643 /* SnapdexData */; };
+		27EDB2EB2DB1114700615643 /* SnapdexUseCases in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2EA2DB1114700615643 /* SnapdexUseCases */; };
+		27EDB2EE2DB1114F00615643 /* SnapdexUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2ED2DB1114F00615643 /* SnapdexUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		271224B12DB10D490069ABED /* SnapdexDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SnapdexDomain; sourceTree = "<group>"; };
+		271224B22DB10D900069ABED /* SnapdexData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SnapdexData; sourceTree = "<group>"; };
+		271224B32DB10DC30069ABED /* SnapdexUseCases */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SnapdexUseCases; sourceTree = "<group>"; };
+		271224B42DB10E090069ABED /* SnapdexUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SnapdexUI; sourceTree = "<group>"; };
 		27468C0D2D9E866700A2ED98 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/CoreML.framework; sourceTree = DEVELOPER_DIR; };
 		278673412D9D8A6300C03987 /* Snapdex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapdex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		279EC3322DA04F3900DD825D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		27B3FC642DB10688008CD634 /* SnapdexDesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SnapdexDesignSystem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -51,14 +61,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EDB2E82DB1113F00615643 /* SnapdexData in Frameworks */,
 				279EC31E2DA03BB100DD825D /* GRDB in Frameworks */,
+				27EDB2EB2DB1114700615643 /* SnapdexUseCases in Frameworks */,
 				27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */,
 				27468C022D9E849500A2ED98 /* FirebaseAuth in Frameworks */,
+				27EDB2E22DB1112A00615643 /* SnapdexDesignSystem in Frameworks */,
 				27468BFA2D9E834500A2ED98 /* Kingfisher in Frameworks */,
 				27468C062D9E849500A2ED98 /* FirebaseCrashlytics in Frameworks */,
+				27EDB2E52DB1113400615643 /* SnapdexDomain in Frameworks */,
 				27468C002D9E849500A2ED98 /* FirebaseAnalytics in Frameworks */,
 				27468C082D9E849500A2ED98 /* FirebaseFirestore in Frameworks */,
 				27468C042D9E849500A2ED98 /* FirebaseCore in Frameworks */,
+				27EDB2EE2DB1114F00615643 /* SnapdexUI in Frameworks */,
 				27468BF72D9E82F500A2ED98 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,6 +92,11 @@
 		278673382D9D8A6300C03987 = {
 			isa = PBXGroup;
 			children = (
+				271224B42DB10E090069ABED /* SnapdexUI */,
+				271224B32DB10DC30069ABED /* SnapdexUseCases */,
+				271224B22DB10D900069ABED /* SnapdexData */,
+				271224B12DB10D490069ABED /* SnapdexDomain */,
+				27B3FC642DB10688008CD634 /* SnapdexDesignSystem */,
 				278673432D9D8A6300C03987 /* Snapdex */,
 				27468C0C2D9E866700A2ED98 /* Frameworks */,
 				278673422D9D8A6300C03987 /* Products */,
@@ -120,6 +140,11 @@
 				27468C052D9E849500A2ED98 /* FirebaseCrashlytics */,
 				27468C072D9E849500A2ED98 /* FirebaseFirestore */,
 				279EC31D2DA03BB100DD825D /* GRDB */,
+				27EDB2E12DB1112A00615643 /* SnapdexDesignSystem */,
+				27EDB2E42DB1113400615643 /* SnapdexDomain */,
+				27EDB2E72DB1113F00615643 /* SnapdexData */,
+				27EDB2EA2DB1114700615643 /* SnapdexUseCases */,
+				27EDB2ED2DB1114F00615643 /* SnapdexUI */,
 			);
 			productName = Snapdex;
 			productReference = 278673412D9D8A6300C03987 /* Snapdex.app */;
@@ -154,6 +179,11 @@
 				27468BF82D9E834500A2ED98 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				27468BFE2D9E849500A2ED98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				279EC31C2DA03BB100DD825D /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				27EDB2E02DB1112A00615643 /* XCLocalSwiftPackageReference "SnapdexDesignSystem" */,
+				27EDB2E32DB1113400615643 /* XCLocalSwiftPackageReference "SnapdexDomain" */,
+				27EDB2E62DB1113F00615643 /* XCLocalSwiftPackageReference "SnapdexData" */,
+				27EDB2E92DB1114700615643 /* XCLocalSwiftPackageReference "SnapdexUseCases" */,
+				27EDB2EC2DB1114F00615643 /* XCLocalSwiftPackageReference "SnapdexUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 278673422D9D8A6300C03987 /* Products */;
@@ -404,6 +434,29 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		27EDB2E02DB1112A00615643 /* XCLocalSwiftPackageReference "SnapdexDesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SnapdexDesignSystem;
+		};
+		27EDB2E32DB1113400615643 /* XCLocalSwiftPackageReference "SnapdexDomain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SnapdexDomain;
+		};
+		27EDB2E62DB1113F00615643 /* XCLocalSwiftPackageReference "SnapdexData" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SnapdexData;
+		};
+		27EDB2E92DB1114700615643 /* XCLocalSwiftPackageReference "SnapdexUseCases" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SnapdexUseCases;
+		};
+		27EDB2EC2DB1114F00615643 /* XCLocalSwiftPackageReference "SnapdexUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SnapdexUI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -479,6 +532,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 279EC31C2DA03BB100DD825D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		27EDB2E12DB1112A00615643 /* SnapdexDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnapdexDesignSystem;
+		};
+		27EDB2E42DB1113400615643 /* SnapdexDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnapdexDomain;
+		};
+		27EDB2E72DB1113F00615643 /* SnapdexData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnapdexData;
+		};
+		27EDB2EA2DB1114700615643 /* SnapdexUseCases */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnapdexUseCases;
+		};
+		27EDB2ED2DB1114F00615643 /* SnapdexUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnapdexUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

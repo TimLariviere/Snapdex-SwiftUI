@@ -1,5 +1,7 @@
 import SwiftUI
 import Firebase
+import SnapdexDesignSystem
+import SnapdexUI
 
 @main
 struct SnapdexApp: App {
@@ -9,10 +11,9 @@ struct SnapdexApp: App {
     
     var body: some Scene {
         let theme = Theme()
-        let container = Container()
         
         WindowGroup {
-            NavigationRoot(container: container)
+            IntroScreen()
                 .environment(\.theme, theme)
                 .foregroundStyle(theme.colors.onBackground)
                 .fontStyle(theme.typography.paragraph)
