@@ -21,7 +21,7 @@ struct AvatarPicker: View {
             
             Spacer()
             
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 90))], spacing: 8) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 8)], spacing: 16) {
                 ForEach(0..<10) { index in
                     let isSelected = index == selected
                     
