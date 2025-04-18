@@ -1,6 +1,6 @@
 import Foundation
 
-public class UserDataValidator {
+public final class UserDataValidator: Sendable {
     public init() {}
     
     public func validateName(_ name: String) -> Bool {

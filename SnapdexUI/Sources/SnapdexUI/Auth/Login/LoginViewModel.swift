@@ -4,7 +4,6 @@ import SnapdexDomain
 import SnapdexUseCases
 
 @MainActor @Observable class LoginViewModel {
-    let authService: AuthService
     
     var email: String = "" {
         didSet { validateForm() }
@@ -18,8 +17,10 @@ import SnapdexUseCases
     
     let didLogin = PassthroughSubject<Void, Never>()
     
-    init(authService: AuthService) {
-        self.authService = authService
+    private let authServicing: AuthServicing
+    
+    init(deps: AppDependencies) {
+        self.authServicing = deps.authServicing
     }
     
     private func validateForm() {
@@ -29,7 +30,7 @@ import SnapdexUseCases
     func login() async {
         self.isLoginIn = true
         
-        let result = await authService.login(email: email, password: password)
+        let result = await authServicing.login(email: email, password: password)
         
         self.isLoginIn = false
         

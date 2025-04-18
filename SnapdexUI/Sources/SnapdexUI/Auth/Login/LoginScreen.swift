@@ -3,13 +3,14 @@ import SnapdexDesignSystem
 import SnapdexUseCases
 
 struct LoginScreen: View {
-    @State private var viewModel = LoginViewModel(authService: AuthService())
+    @State private var viewModel : LoginViewModel
     @Environment(\.theme) private var theme
     @Environment(Router<AuthDestination>.self) private var router
     
     let didLogin: @MainActor () -> Void
     
-    init(didLogin: @MainActor @escaping () -> Void) {
+    init(deps: AppDependencies, didLogin: @MainActor @escaping () -> Void) {
+        self._viewModel = State(initialValue: LoginViewModel(deps: deps))
         self.didLogin = didLogin
     }
     
@@ -73,6 +74,9 @@ struct LoginScreen: View {
 
 #Preview {
     AppTheme {
-        LoginScreen(didLogin: {})
+        LoginScreen(
+            deps: MockAppDependencies.shared,
+            didLogin: {}
+        )
     }
 }

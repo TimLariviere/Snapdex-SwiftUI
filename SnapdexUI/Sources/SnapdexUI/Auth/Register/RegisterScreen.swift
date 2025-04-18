@@ -7,10 +7,11 @@ struct RegisterScreen: View {
     let didRegister: @MainActor () -> Void
     
     @Environment(\.theme) private var theme
-    @State private var viewModel = RegisterViewModel(authService: AuthService(), userDataValidator: UserDataValidator())
+    @State private var viewModel: RegisterViewModel
     @State private var isAvatarPickerPresented = false
     
-    init(didRegister: @MainActor @escaping () -> Void) {
+    init(deps: AppDependencies, didRegister: @MainActor @escaping () -> Void) {
+        self._viewModel = State(initialValue: RegisterViewModel(deps: deps))
         self.didRegister = didRegister
     }
     
@@ -92,6 +93,9 @@ struct RegisterScreen: View {
 
 #Preview {
     AppTheme {
-        RegisterScreen(didRegister: {})
+        RegisterScreen(
+            deps: MockAppDependencies.shared,
+            didRegister: {}
+        )
     }
 }

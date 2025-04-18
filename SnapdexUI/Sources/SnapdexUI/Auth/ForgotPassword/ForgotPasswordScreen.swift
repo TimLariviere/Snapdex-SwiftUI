@@ -5,10 +5,11 @@ import SnapdexUseCases
 
 struct ForgotPasswordScreen: View {
     @Environment(\.theme) private var theme
-    @State private var viewModel = ForgotPasswordViewModel(
-        authService: AuthService(),
-        userDataValidator: UserDataValidator()
-    )
+    @State private var viewModel: ForgotPasswordViewModel
+    
+    init(deps: AppDependencies) {
+        _viewModel = State(initialValue: ForgotPasswordViewModel(deps: deps))
+    }
     
     var body: some View {
         SnapdexScaffold(title: "Forgotten Password") {
@@ -39,6 +40,6 @@ struct ForgotPasswordScreen: View {
 
 #Preview {
     AppTheme {
-        ForgotPasswordScreen()
+        ForgotPasswordScreen(deps: MockAppDependencies.shared)
     }
 }

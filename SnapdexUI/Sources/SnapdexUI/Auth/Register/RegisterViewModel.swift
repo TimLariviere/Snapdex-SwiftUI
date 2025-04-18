@@ -23,12 +23,12 @@ import SnapdexUseCases
     
     let didRegister = PassthroughSubject<Void, Never>()
     
-    private let authService: AuthService
+    private let authServicing: AuthServicing
     private let userDataValidator: UserDataValidator
     
-    init(authService: AuthService, userDataValidator: UserDataValidator) {
-        self.authService = authService
-        self.userDataValidator = userDataValidator
+    init(deps: AppDependencies) {
+        self.authServicing = deps.authServicing
+        self.userDataValidator = deps.userDataValidator
     }
     
     private func validateForm() {
@@ -44,7 +44,7 @@ import SnapdexUseCases
     func register() async {
         isRegistering = true
         
-        let result = await authService.register(
+        let result = await authServicing.register(
             avatarId: avatar,
             name: name,
             email: email,

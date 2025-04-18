@@ -5,6 +5,8 @@ import SnapdexUI
 
 @main
 struct SnapdexApp: App {
+    let configuration = Configuration()
+    
     init() {
         FirebaseApp.configure()
     }
@@ -12,7 +14,7 @@ struct SnapdexApp: App {
     var body: some Scene {
         WindowGroup {
             AppTheme {
-                AppCoordinator()
+                AppCoordinator(deps: configuration)
             }
         }
     }

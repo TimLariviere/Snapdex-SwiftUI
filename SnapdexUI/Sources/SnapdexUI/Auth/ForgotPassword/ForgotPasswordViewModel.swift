@@ -13,12 +13,12 @@ import SnapdexUseCases
 
     let didSendEmail = PassthroughSubject<Void, Never>()
     
-    private let authService: AuthService
+    private let authService: AuthServicing
     private let userDataValidator: UserDataValidator
     
-    init(authService: AuthService, userDataValidator: UserDataValidator) {
-        self.authService = authService
-        self.userDataValidator = userDataValidator
+    init(deps: AppDependencies) {
+        self.authService = deps.authServicing
+        self.userDataValidator = deps.userDataValidator
     }
     
     private func validateForm() {

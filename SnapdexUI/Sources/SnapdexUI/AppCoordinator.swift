@@ -1,19 +1,27 @@
 import SwiftUI
+import SnapdexUseCases
 
 @MainActor
 public struct AppCoordinator: View {
     @AppStorage("hasSeenIntro") private var hasSeenIntro = false
     @AppStorage("isLoggedIn") private var isLoggedIn = false
     
-    public init() {}
+    private let deps: AppDependencies
+    
+    public init(deps: AppDependencies) {
+        self.deps = deps
+    }
     
     public var body: some View {
         if (isLoggedIn) {
             Text("Main")
         } else if (hasSeenIntro) {
-            AuthCoordinator(didLogin: {
-                isLoggedIn = true
-            })
+            AuthCoordinator(
+                deps: deps,
+                didLogin: {
+                    isLoggedIn = true
+                }
+            )
         } else {
             IntroScreen {
                 hasSeenIntro = true
