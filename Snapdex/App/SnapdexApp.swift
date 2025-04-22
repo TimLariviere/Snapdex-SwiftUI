@@ -14,7 +14,8 @@ struct SnapdexApp: App {
     var body: some Scene {
         WindowGroup {
             AppTheme {
-                AppCoordinator(deps: configuration)
+                //AppCoordinator(deps: configuration)
+                PokedexScreen()
             }
         }
     }
