@@ -27,6 +27,7 @@ public struct SnapdexNavBar : View {
             ForEach(Array(tabs.enumerated()), id: \.offset) { index, tab in
                 let isSelected = index == selected
                 SnapdexIcon(isSelected ? tab.selected : tab.unselected)
+                    .frame(width: 32, height: 32)
                     .foregroundStyle(isSelected ? theme.colors.primary : theme.colors.navBarOnBackground)
                     .onTapGesture {
                         selected = index

@@ -14,6 +14,7 @@ public enum SnapdexIconName : String {
     case statsUnselected = "StatsUnselected"
     case profileSelected = "ProfileSelected"
     case profileUnselected = "ProfileUnselected"
+    case pokeball = "Pokeball"
 }
 
 public struct SnapdexIcon : View {
@@ -25,5 +26,7 @@ public struct SnapdexIcon : View {
     
     public var body: some View {
         Image(iconName.rawValue, bundle: .module)
+            .resizable()
+            .scaledToFit()
     }
 }

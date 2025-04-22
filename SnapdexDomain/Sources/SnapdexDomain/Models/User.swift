@@ -1,6 +1,13 @@
-struct User {
-    let id: UserId?
-    let avatarId: AvatarId
-    let name: String
-    let email: String
+public struct User {
+    public let id: UserId?
+    public let avatarId: AvatarId
+    public let name: String
+    public let email: String
+    
+    public init(id: UserId?, avatarId: AvatarId, name: String, email: String) {
+        self.id = id
+        self.avatarId = avatarId
+        self.name = name
+        self.email = email
+    }
 }

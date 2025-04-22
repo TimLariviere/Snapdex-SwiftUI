@@ -16,11 +16,13 @@ struct SearchView : View {
     var body: some View {
         HStack(spacing: 8) {
             SnapdexIcon(.search)
+                .frame(maxHeight: .infinity)
+                .aspectRatio(contentMode: .fit)
                 .foregroundStyle(theme.colors.onSurfaceVariant)
             
             SearchTextField(text: $text, hint: hint, focused: $focused)
         }
-        .padding(16)
+        .padding(12)
         .frame(height: 44)
         .background(theme.colors.surface)
         .clipShape(RoundedRectangle(cornerRadius: 40))

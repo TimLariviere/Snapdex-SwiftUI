@@ -1,4 +1,4 @@
-enum PokemonType {
+public enum PokemonType {
     case bug
     case dragon
     case electric
@@ -18,7 +18,7 @@ enum PokemonType {
     case water
 }
 
-extension PokemonType {
+public extension PokemonType {
     static func fromInt(value: Int) -> PokemonType {
         switch value {
             case 1: .dragon
