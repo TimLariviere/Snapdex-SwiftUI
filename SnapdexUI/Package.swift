@@ -15,6 +15,7 @@ let package = Package(
         .package(path: "../SnapdexDesignSystem"),
         .package(path: "../SnapdexDomain"),
         .package(path: "../SnapdexUseCases"),
+        .package(url: "https://github.com/tevelee/SwiftUI-Flow.git", .upToNextMajor(from: "3.0.2"))
     ],
     targets: [
         .target(
@@ -25,8 +26,9 @@ let package = Package(
                 "SnapdexUseCases"
             ],
             resources: [
+                .process("Resources/Pokemons"),
                 .process("Resources/Images.xcassets"),
-                .process("Resources/Colors.xcassets")
+                .process("Resources/Colors.xcassets"),
             ]
         )
     ]

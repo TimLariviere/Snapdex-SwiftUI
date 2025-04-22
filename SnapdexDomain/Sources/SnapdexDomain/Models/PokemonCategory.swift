@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PokemonCategory {
+public struct PokemonCategory : Equatable {
     public let id: Int
     public let name: [Locale: String]
     

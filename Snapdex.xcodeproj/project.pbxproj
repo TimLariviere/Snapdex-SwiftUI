@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2723F3152DB7D2860091E0BA /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = 2723F3142DB7D2860091E0BA /* Flow */; };
 		27468BF72D9E82F500A2ED98 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BF62D9E82F500A2ED98 /* Alamofire */; };
 		27468BFA2D9E834500A2ED98 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BF92D9E834500A2ED98 /* Kingfisher */; };
 		27468C002D9E849500A2ED98 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 27468BFF2D9E849500A2ED98 /* FirebaseAnalytics */; };
@@ -72,6 +73,7 @@
 				27EDB2E52DB1113400615643 /* SnapdexDomain in Frameworks */,
 				27468C002D9E849500A2ED98 /* FirebaseAnalytics in Frameworks */,
 				27468C082D9E849500A2ED98 /* FirebaseFirestore in Frameworks */,
+				2723F3152DB7D2860091E0BA /* Flow in Frameworks */,
 				27468C042D9E849500A2ED98 /* FirebaseCore in Frameworks */,
 				27EDB2EE2DB1114F00615643 /* SnapdexUI in Frameworks */,
 				27468BF72D9E82F500A2ED98 /* Alamofire in Frameworks */,
@@ -145,6 +147,7 @@
 				27EDB2E72DB1113F00615643 /* SnapdexData */,
 				27EDB2EA2DB1114700615643 /* SnapdexUseCases */,
 				27EDB2ED2DB1114F00615643 /* SnapdexUI */,
+				2723F3142DB7D2860091E0BA /* Flow */,
 			);
 			productName = Snapdex;
 			productReference = 278673412D9D8A6300C03987 /* Snapdex.app */;
@@ -184,6 +187,7 @@
 				27EDB2E62DB1113F00615643 /* XCLocalSwiftPackageReference "SnapdexData" */,
 				27EDB2E92DB1114700615643 /* XCLocalSwiftPackageReference "SnapdexUseCases" */,
 				27EDB2EC2DB1114F00615643 /* XCLocalSwiftPackageReference "SnapdexUI" */,
+				2723F3132DB7D2860091E0BA /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 278673422D9D8A6300C03987 /* Products */;
@@ -458,6 +462,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2723F3132DB7D2860091E0BA /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.2;
+			};
+		};
 		27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -493,6 +505,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2723F3142DB7D2860091E0BA /* Flow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2723F3132DB7D2860091E0BA /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
+			productName = Flow;
+		};
 		27468BF62D9E82F500A2ED98 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27468BF52D9E82F500A2ED98 /* XCRemoteSwiftPackageReference "Alamofire" */;

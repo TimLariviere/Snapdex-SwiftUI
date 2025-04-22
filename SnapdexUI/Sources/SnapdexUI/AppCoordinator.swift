@@ -14,7 +14,7 @@ public struct AppCoordinator: View {
     
     public var body: some View {
         if (isLoggedIn) {
-            MainScreen()
+            MainScreen(deps: deps)
         } else if (hasSeenIntro) {
             AuthCoordinator(
                 deps: deps,

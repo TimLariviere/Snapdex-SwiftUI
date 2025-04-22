@@ -2,12 +2,11 @@ import SwiftUI
 import SnapdexDesignSystem
 import SnapdexDomain
 
-public struct PokedexScreen: View {
+struct PokedexScreen: View {
+    @Environment(Router<PokedexTabDestination>.self) private var router
     @State private var search: String = ""
     
-    public init() {}
-    
-    public var body: some View {
+    var body: some View {
         SnapdexScaffold {
             ZStack(alignment: .bottomTrailing) {
                 VStack {
@@ -18,21 +17,24 @@ public struct PokedexScreen: View {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 8)], spacing: 8) {
                             ForEach(0..<151, id: \.self) { index in
                                 if (index == 0) {
-                                    PokemonItem(
-                                        pokemon: Pokemon(
-                                            id: 1,
-                                            name: [ Locale(identifier: "en") : "Charizard" ],
-                                            description: [ Locale(identifier: "en") : "Charizard" ],
-                                            types: [ .fire ],
-                                            weaknesses: [ .water ],
-                                            weight: .kilograms,
-                                            height: .meters,
-                                            category: PokemonCategory(id: 0, name: [ Locale(identifier: "en") : "Charizard" ]),
-                                            ability: PokemonAbility(id: 0, name: [ Locale(identifier: "en") : "Charizard" ]),
-                                            maleToFemaleRatio: 0.9
-                                        )
+                                    let pokemon = Pokemon(
+                                        id: 1,
+                                        name: [ Locale(identifier: "en") : "Charizard" ],
+                                        description: [ Locale(identifier: "en") : "Charizard" ],
+                                        types: [ .fire ],
+                                        weaknesses: [ .water ],
+                                        weight: Measurement(value: 100, unit: .kilograms),
+                                        height: Measurement(value: 1.7, unit: .meters),
+                                        category: PokemonCategory(id: 0, name: [ Locale(identifier: "en") : "Lizard" ]),
+                                        ability: PokemonAbility(id: 0, name: [ Locale(identifier: "en") : "Blaze" ]),
+                                        maleToFemaleRatio: 0.9
                                     )
-                                    .aspectRatio(4.0/5.0, contentMode: .fit)
+                                    
+                                    PokemonItem(pokemon: pokemon)
+                                        .aspectRatio(4.0/5.0, contentMode: .fit)
+                                        .onTapGesture {
+                                            router.push(.pokemonDetail(pokemon.id))
+                                        }
                                 } else {
                                     UnknownItem(id: index + 1)
                                         .aspectRatio(4.0/5.0, contentMode: .fit)
@@ -57,5 +59,6 @@ public struct PokedexScreen: View {
 #Preview {
     AppTheme {
         PokedexScreen()
+            .environment(Router<PokedexTabDestination>())
     }
 }

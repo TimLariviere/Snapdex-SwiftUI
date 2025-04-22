@@ -1,4 +1,4 @@
-public enum PokemonType {
+public enum PokemonType: CaseIterable {
     case bug
     case dragon
     case electric

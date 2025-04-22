@@ -4,9 +4,15 @@ import SnapdexDesignSystem
 struct MainScreen: View {
     @State private var selectedTab = 0
     
+    let deps: AppDependencies
+    
+    public init(deps: AppDependencies) {
+        self.deps = deps
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
-            PokedexScreen()
+            PokedexTabCoordinator(deps: deps)
                 .opacity(selectedTab == 0 ? 1.0 : 0.0)
             
             Text("Stats")
