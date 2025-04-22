@@ -1,7 +1,19 @@
 import SwiftUI
 
 public enum SnapdexIconName : String {
+    case add = "Add"
+    case check = "Check"
+    case close = "Close"
+    case error = "Error"
+    case eye = "Eye"
+    case eyeClosed = "EyeClosed"
     case search = "Search"
+    case gridSelected = "GridSelected"
+    case gridUnselected = "GridUnselected"
+    case statsSelected = "StatsSelected"
+    case statsUnselected = "StatsUnselected"
+    case profileSelected = "ProfileSelected"
+    case profileUnselected = "ProfileUnselected"
 }
 
 public struct SnapdexIcon : View {
