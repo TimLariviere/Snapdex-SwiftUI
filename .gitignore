@@ -97,3 +97,6 @@ Temporary Items
 GoogleService-Info.plist
 
 Snapdex/Resources/snapdex.db
+
+SnapdexUI/Sources/SnapdexUI/Resources/Images.xcassets/**/[Pp]okemon**.imageset/*.png
+SnapdexUI/Sources/SnapdexUI/Resources/Pokemons/*.gif

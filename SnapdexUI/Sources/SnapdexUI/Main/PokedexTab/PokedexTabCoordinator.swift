@@ -29,8 +29,8 @@ public struct PokedexTabCoordinator: View {
                         )
                     }
                 }
-                .environment(router)
         }
+        .environment(router)
     }
 }
 

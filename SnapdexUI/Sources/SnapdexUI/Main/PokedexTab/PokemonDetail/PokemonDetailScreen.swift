@@ -6,6 +6,8 @@ import SnapdexDomain
 struct PokemonDetailScreen : View {
     @Environment(\.theme) private var theme
     @Environment(\.locale) private var locale
+    @Environment(Router<PokedexTabDestination>.self) private var router
+    @Environment(NavBarVisibility.self) private var navBarVisibility
     @State private var viewModel: PokemonDetailViewModel
     @State private var types: [TypeUi] = []
     @State private var weaknesses: [TypeUi] = []
@@ -25,7 +27,7 @@ struct PokemonDetailScreen : View {
                             .frame(height: 180)
                             .fixedSize(horizontal: false, vertical: true)
                         
-                        header
+                        header(pokemon: pokemon)
                             .frame(maxWidth: .infinity)
                         
                         HFlow(spacing: 8) {
@@ -39,11 +41,15 @@ struct PokemonDetailScreen : View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .multilineTextAlignment(.leading)
                         
-                        dataCards
+                        dataCards(pokemon: pokemon)
                             .frame(maxWidth: .infinity)
                         
                         weaknessesSection
                             .frame(maxWidth: .infinity)
+                        
+                        if let evolutionChain = viewModel.evolutionChain {
+                            evolutionsSection(evolutionChain: evolutionChain)
+                        }
                     }
                     .padding(.horizontal, 16)
                     .padding(.bottom, 24)
@@ -53,6 +59,7 @@ struct PokemonDetailScreen : View {
             }
         }
         .onAppear {
+            navBarVisibility.isVisible = false
             viewModel.loadPokemon()
         }
         .onChange(of: viewModel.pokemon) { old, new in
@@ -66,10 +73,8 @@ struct PokemonDetailScreen : View {
         }
     }
     
-    var header: some View {
-        let pokemon = viewModel.pokemon!
-        
-        return VStack(alignment: .leading) {
+    func header(pokemon: Pokemon) -> some View {
+        VStack(alignment: .leading) {
             Text(String(format: "Nº%04d", pokemon.id))
                 .fontStyle(theme.typography.smallLabel)
             
@@ -79,10 +84,8 @@ struct PokemonDetailScreen : View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    var dataCards: some View {
-        let pokemon = viewModel.pokemon!
-        
-        return VStack(spacing: 8) {
+    func dataCards(pokemon: Pokemon) -> some View {
+        VStack(spacing: 8) {
             HStack(spacing: 8) {
                 DataCardItem(icon: "Weight", name: "Weight", value: pokemon.weight.formatted())
                 DataCardItem(icon: "Height", name: "Height", value: pokemon.height.formatted())
@@ -114,12 +117,29 @@ struct PokemonDetailScreen : View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+    
+    func evolutionsSection(evolutionChain: EvolutionChain) -> some View {
+        VStack(alignment: .leading, spacing: -16) {
+            Text("Evolutions".uppercased())
+                .fontStyle(theme.typography.largeLabel)
+            
+            EvolutionChainView(
+                evolutionChain: evolutionChain,
+                onPokemonClick: { pokemonId in
+                    router.push(.pokemonDetail(pokemonId))
+                }
+            )
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
 }
 
 #Preview {
     AppTheme {
         PokemonDetailScreen(deps: MockAppDependencies(), pokemonId: 1)
     }
+    .environment(Router<PokedexTabDestination>())
+    .environment(NavBarVisibility())
 }
 
 

@@ -4,6 +4,7 @@ import SnapdexDomain
 
 struct PokedexScreen: View {
     @Environment(Router<PokedexTabDestination>.self) private var router
+    @Environment(NavBarVisibility.self) private var navBarVisibility
     @State private var search: String = ""
     
     var body: some View {
@@ -53,6 +54,9 @@ struct PokedexScreen: View {
                 .padding(.horizontal, 16)
             }
         }
+        .onAppear {
+            navBarVisibility.isVisible = true
+        }
     }
 }
 
@@ -60,5 +64,6 @@ struct PokedexScreen: View {
     AppTheme {
         PokedexScreen()
             .environment(Router<PokedexTabDestination>())
+            .environment(NavBarVisibility())
     }
 }

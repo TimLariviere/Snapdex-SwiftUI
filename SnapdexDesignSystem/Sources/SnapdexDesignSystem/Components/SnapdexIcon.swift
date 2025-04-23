@@ -15,6 +15,7 @@ public enum SnapdexIconName : String {
     case profileSelected = "ProfileSelected"
     case profileUnselected = "ProfileUnselected"
     case pokeball = "Pokeball"
+    case arrowDown = "ArrowDown"
 }
 
 public struct SnapdexIcon : View {

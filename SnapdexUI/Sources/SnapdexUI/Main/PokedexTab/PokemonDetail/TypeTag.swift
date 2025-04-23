@@ -1,7 +1,6 @@
 import SwiftUI
 import SnapdexDesignSystem
 import SnapdexDomain
-//import Flow
 
 struct TypeTag : View {
     let typeUi: TypeUi

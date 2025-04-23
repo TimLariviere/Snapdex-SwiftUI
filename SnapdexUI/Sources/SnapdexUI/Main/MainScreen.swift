@@ -1,8 +1,14 @@
 import SwiftUI
 import SnapdexDesignSystem
 
+@Observable class NavBarVisibility {
+    var isVisible: Bool = true
+}
+
+
 struct MainScreen: View {
     @State private var selectedTab = 0
+    @State private var navBarVisibility = NavBarVisibility()
     
     let deps: AppDependencies
     
@@ -29,6 +35,13 @@ struct MainScreen: View {
                 ],
                 selected: $selectedTab
             )
+            .offset(y: navBarVisibility.isVisible ? 0 : 100)
+            .opacity(navBarVisibility.isVisible ? 1 : 0)
+            .animation(
+                navBarVisibility.isVisible ? .easeOut(duration: 0.3) : .easeIn(duration: 0.3),
+                value: navBarVisibility.isVisible
+            )
         }
+        .environment(navBarVisibility)
     }
 }
