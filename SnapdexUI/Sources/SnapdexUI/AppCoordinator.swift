@@ -4,7 +4,7 @@ import SnapdexUseCases
 @MainActor
 public struct AppCoordinator: View {
     @AppStorage("hasSeenIntro") private var hasSeenIntro = false
-    @AppStorage("isLoggedIn") private var isLoggedIn = true
+    @AppStorage("isLoggedIn") private var isLoggedIn = false
     
     private let deps: AppDependencies
     

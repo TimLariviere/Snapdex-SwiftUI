@@ -39,7 +39,5 @@ import SnapdexUseCases
             case .failure(.loginFailed): self.error = "Login failed"
             case .failure(.invalidCredentials): self.error = "Incorrect email or password"
         }
-        
-        self.error = "Not implemented"
     }
 }

@@ -1,24 +1,24 @@
 import GRDB
 
-struct UserEntity: Codable, FetchableRecord, PersistableRecord, Identifiable {
-    var id: String
-    var avatarId: Int
-    var name: String
-    var email: String
-    var createdAt: UInt64
-    var updatedAt: UInt64
+public struct UserEntity: Codable, FetchableRecord, PersistableRecord, Identifiable, Sendable {
+    public var id: String
+    public var avatarId: Int
+    public var name: String
+    public var email: String
+    public var createdAt: UInt64
+    public var updatedAt: UInt64
     
-    static let databaseTableName: String = "Users"
+    public static let databaseTableName: String = "Users"
 }
 
-struct UserPokemonEntity: Codable, FetchableRecord, MutablePersistableRecord, Identifiable {
-    var id: Int?
-    var userId: String
-    var pokemonId: Int
-    var createdAt: UInt64
-    var updatedAt: UInt64
-    
-    static let databaseTableName: String = "UserPokemons"
+public struct UserPokemonEntity: Codable, FetchableRecord, MutablePersistableRecord, Identifiable, Sendable {
+    public var id: Int?
+    public var userId: String
+    public var pokemonId: Int
+    public var createdAt: UInt64
+    public var updatedAt: UInt64
+     
+    public static let databaseTableName: String = "UserPokemons"
     
     mutating func didInsert(with rowID: Int, for column: String?) {
         self.id = rowID

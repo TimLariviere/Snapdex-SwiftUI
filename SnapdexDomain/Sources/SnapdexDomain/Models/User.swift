@@ -1,4 +1,4 @@
-public struct User {
+public struct User: Sendable {
     public let id: UserId?
     public let avatarId: AvatarId
     public let name: String

@@ -4,6 +4,8 @@ import SnapdexUseCases
 
 public protocol AppDependencies: Sendable {
     var authServicing: AuthServicing { get }
+    var classifier: Classifier { get }
+    var pokemonServicing: PokemonServicing { get }
     var userDataValidator: UserDataValidator { get }
 }
 

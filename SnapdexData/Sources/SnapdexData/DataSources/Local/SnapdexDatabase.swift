@@ -1,10 +1,10 @@
 import GRDB
 import Foundation
 
-class SnapdexDatabase {
+public final class SnapdexDatabase: @unchecked Sendable {
     var dbQueue: DatabaseQueue!
     
-    init() {
+    public init() {
         setupDatabase()
     }
     

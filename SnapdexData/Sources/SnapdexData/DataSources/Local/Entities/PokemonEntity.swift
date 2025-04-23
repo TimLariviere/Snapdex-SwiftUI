@@ -1,18 +1,18 @@
 import GRDB
 
-struct PokemonEntity: Codable, FetchableRecord, TableRecord, Identifiable {
-    var id: Int
-    var weight: Double
-    var height: Double
-    var categoryId: Int
-    var abilityId: Int
-    var maleToFemaleRatio: Double
+public struct PokemonEntity: Codable, FetchableRecord, TableRecord, Identifiable, Sendable {
+    public var id: Int
+    public var weight: Double
+    public var height: Double
+    public var categoryId: Int
+    public var abilityId: Int
+    public var maleToFemaleRatio: Double
     
-    static let databaseTableName: String = "Pokemons"
-    static let translations = hasMany(PokemonTranslationEntity.self)
-    static let types = hasMany(PokemonTypeEntity.self)
-    static let ability = belongsTo(AbilityEntity.self)
-    static let category = belongsTo(CategoryEntity.self)
+    public static let databaseTableName: String = "Pokemons"
+    public static let translations = hasMany(PokemonTranslationEntity.self)
+    public static let types = hasMany(PokemonTypeEntity.self)
+    public static let ability = belongsTo(AbilityEntity.self)
+    public static let category = belongsTo(CategoryEntity.self)
     
     enum Columns: String, ColumnExpression {
         case categoryId
@@ -20,26 +20,26 @@ struct PokemonEntity: Codable, FetchableRecord, TableRecord, Identifiable {
     }
 }
 
-struct PokemonTranslationEntity: Codable, FetchableRecord, TableRecord, Identifiable {
-    var id: Int
-    var pokemonId: Int
-    var language: String
-    var name: String
-    var description: String
+public struct PokemonTranslationEntity: Codable, FetchableRecord, TableRecord, Identifiable, Sendable {
+    public var id: Int
+    public var pokemonId: Int
+    public var language: String
+    public var name: String
+    public var description: String
     
-    static let databaseTableName: String = "PokemonTranslations"
+    public static let databaseTableName: String = "PokemonTranslations"
     
     enum Columns: String, ColumnExpression {
         case pokemonId
     }
 }
 
-struct PokemonTypeEntity: Codable, FetchableRecord, TableRecord, Identifiable {
-    var id: Int
-    var pokemonId: Int
-    var type: Int
+public struct PokemonTypeEntity: Codable, FetchableRecord, TableRecord, Identifiable, Sendable {
+    public var id: Int
+    public var pokemonId: Int
+    public var type: Int
     
-    static let databaseTableName: String = "PokemonTypes"
+    public static let databaseTableName: String = "PokemonTypes"
     
     enum Columns: String, ColumnExpression {
         case pokemonId

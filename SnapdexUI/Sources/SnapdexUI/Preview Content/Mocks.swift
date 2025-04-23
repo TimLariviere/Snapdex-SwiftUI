@@ -1,4 +1,5 @@
 import SnapdexDomain
+import Combine
 import SnapdexUseCases
 
 final class MockAuthService: AuthServicing {
@@ -15,6 +16,34 @@ final class MockAuthService: AuthServicing {
     }
 }
 
+final class MockClassifier : Classifier {
+    func initialize() async {
+        
+    }
+    
+    func classify(bitmap: [UInt8]) async -> PokemonId? {
+        return nil
+    }
+}
+
+final class MockPokemonService: PokemonServicing {
+    func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Error> {
+        return CurrentValueSubject<[Pokemon], Error>([]).eraseToAnyPublisher()
+    }
+    
+    func getById(pokemonId: PokemonId) async -> Result<Pokemon?, GetPokemonByIdError> {
+        return .success(nil)
+    }
+    
+    func catchPokemon(userId: UserId, pokemonId: PokemonId) async -> Result<Void, CatchPokemonError> {
+        return .success(())
+    }
+    
+    func resetForUser(userId: UserId) async -> Result<Void, ResetForUserError> {
+        return .success(())
+    }
+}
+
 final class MockAppDependencies : AppDependencies {
     static let shared = MockAppDependencies()
     
@@ -23,4 +52,10 @@ final class MockAppDependencies : AppDependencies {
     
     let _userDataValidator = UserDataValidator()
     var userDataValidator: UserDataValidator { _userDataValidator }
+    
+    let _classifier = MockClassifier()
+    var classifier: Classifier { _classifier }
+    
+    let _pokemonService = MockPokemonService()
+    var pokemonServicing: PokemonServicing { _pokemonService }
 }

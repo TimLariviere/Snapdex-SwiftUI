@@ -5,10 +5,11 @@ import SnapdexUI
 
 @main
 struct SnapdexApp: App {
-    let configuration = Configuration()
+    let configuration: Configuration
     
     init() {
         FirebaseApp.configure()
+        self.configuration = Configuration()
     }
     
     var body: some Scene {

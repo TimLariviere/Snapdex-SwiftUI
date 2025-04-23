@@ -15,28 +15,52 @@ enum FirebaseHelpers {
     }
 }
 
-@MainActor
-final class FirebaseAuthProvider: AuthProvider {
-    private let auth: Auth
-    private var handle: AuthStateDidChangeListenerHandle?
-
-    init(auth: Auth) {
-        self.auth = auth
-        self.handle = auth.addStateDidChangeListener { [weak self] _, user in
-            self?.currentUserId = user?.uid
+actor FirebaseAuthProviderState{
+    private var handle: AuthStateDidChangeListenerHandle? = nil
+    
+    func addListener(auth: Auth, subject: CurrentValueSubject<UserId?, Never>) {
+        self.handle = auth.addStateDidChangeListener { _, user in
+            subject.send(user?.uid)
         }
     }
-
-    var currentUserId: UserId?
     
-    func stop() {
-        if let handle = self.handle {
-            auth.removeStateDidChangeListener(handle)
+    func removeListener(auth: Auth) {
+        if let listener = handle {
+            auth.removeStateDidChangeListener(listener)
             self.handle = nil
         }
     }
+}
 
-    func createUser(withEmail email: String, password: String) async -> Result<String, CreateUserError> {
+public final class FirebaseAuthProvider: AuthProvider, @unchecked Sendable {
+    private let auth: Auth
+    private let currentUserSubject: CurrentValueSubject<UserId?, Never>
+    private let state: FirebaseAuthProviderState
+
+    public init() {
+        self.auth = Auth.auth()
+        self.currentUserSubject = CurrentValueSubject(nil)
+        self.state = FirebaseAuthProviderState()
+        Task {
+            await self.state.addListener(auth: auth, subject: currentUserSubject)
+        }
+    }
+    
+    public func stop() {
+        Task {
+            await self.state.removeListener(auth: auth)
+        }
+    }
+
+    public func getCurrentUserId() -> UserId? {
+        return currentUserSubject.value
+    }
+    
+    public func getCurrentUserIdAsPublisher() -> AnyPublisher<UserId?, Never> {
+        return currentUserSubject.eraseToAnyPublisher()
+    }
+
+    public func createUser(withEmail email: String, password: String) async -> Result<String, CreateUserError> {
         do {
             let uid = try await FirebaseHelpers.createUser(auth: auth, email: email, password: password)
             return .success(uid)
@@ -45,7 +69,7 @@ final class FirebaseAuthProvider: AuthProvider {
         }
     }
 
-    func signIn(withEmail email: String, password: String) async -> Result<UserId, SignInError> {
+    public func signIn(withEmail email: String, password: String) async -> Result<UserId, SignInError> {
         do {
             let uid = try await FirebaseHelpers.signIn(auth: auth, email: email, password: password)
             return .success(uid)
@@ -54,12 +78,39 @@ final class FirebaseAuthProvider: AuthProvider {
         }
     }
 
-    func sendPasswordResetEmail(email: String) async -> Result<Void, AuthSendPasswordResetEmailError> {
+    public func sendPasswordResetEmail(email: String) async -> Result<Void, AuthSendPasswordResetEmailError> {
         do {
             try await auth.sendPasswordReset(withEmail: email)
             return .success(())
         } catch {
             return .failure(.failure(error))
         }
+    }
+    
+    public func signOut() async {
+        do {
+            try auth.signOut()
+        } catch {
+            // TODO
+        }
+    }
+    
+    public func deleteCurrentUser() async {
+        do {
+            if let currentUser = auth.currentUser {
+                try auth.signOut()
+                try await currentUser.delete()
+            }
+        } catch {
+            // TODO
+        }
+    }
+    
+    public func reauthenticate(email: String, password: String) async -> Result<Void, ReauthenticateError> {
+        return .success(())
+    }
+    
+    public func updatePasswordForCurrentUser(newPassword: String) async -> Result<Void, UpdatePasswordError> {
+        return .success(())
     }
 }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import SnapdexDesignSystem
 import SnapdexDomain
 import SnapdexUseCases
@@ -10,7 +11,7 @@ enum PokedexTabDestination: Hashable {
 public struct PokedexTabCoordinator: View {
     @State private var router = Router<PokedexTabDestination>()
     
-    let deps: AppDependencies
+    private let deps: AppDependencies
     
     public init(deps: AppDependencies) {
         self.deps = deps
@@ -19,7 +20,8 @@ public struct PokedexTabCoordinator: View {
     public var body: some View {
         NavigationStack(path: $router.path) {
             PokedexScreen(
-                //deps: deps,
+                deps: deps,
+                pokemonsPublisher: CurrentValueSubject<[Pokemon], Never>([]).eraseToAnyPublisher()
             )
                 .navigationDestination(for: PokedexTabDestination.self) { destination in
                     switch destination {

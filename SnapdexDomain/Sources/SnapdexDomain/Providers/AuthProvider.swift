@@ -1,3 +1,5 @@
+import Combine
+
 public enum CreateUserError : Error {
     case failure(Error)
     case networkError
@@ -19,9 +21,27 @@ public enum AuthSendPasswordResetEmailError : Error {
     case invalidEmailError
 }
 
+public enum ReauthenticateError : Error {
+    case failure(Error)
+    case networkError
+    case invalidPasswordError
+    case invalidEmailError
+}
+
+public enum UpdatePasswordError : Error {
+    case failure(Error)
+    case networkError
+    case invalidPasswordError
+}
+
 public protocol AuthProvider: Sendable {
-    var currentUserId: UserId? { get async }
+    func getCurrentUserId() -> UserId?
+    func getCurrentUserIdAsPublisher() -> AnyPublisher<UserId?, Never>
     func createUser(withEmail email: String, password: String) async -> Result<UserId, CreateUserError>
     func signIn(withEmail email: String, password: String) async -> Result<UserId, SignInError>
     func sendPasswordResetEmail(email: String) async -> Result<Void, AuthSendPasswordResetEmailError>
+    func signOut() async
+    func deleteCurrentUser() async
+    func reauthenticate(email: String, password: String) async -> Result<Void, ReauthenticateError>
+    func updatePasswordForCurrentUser(newPassword: String) async -> Result<Void, UpdatePasswordError>
 }

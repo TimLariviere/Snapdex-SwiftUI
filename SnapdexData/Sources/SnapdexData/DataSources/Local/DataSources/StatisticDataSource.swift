@@ -1,13 +1,15 @@
+import Combine
 import GRDB
+import SnapdexDomain
 
-class LocalStatisticDataSource {
+public final class StatisticDataSource : LocalStatisticsDataSource {
     private let database: SnapdexDatabase
     
     init(database: SnapdexDatabase) {
         self.database = database
     }
     
-    func observeCompletionRate(userId: String) -> DatabasePublishers.Value<CompletionRate> {
+    public func getCompletionRate(userId: UserId) -> AnyPublisher<Statistic, Error> {
         let observation = ValueObservation.tracking { db in
             let sql = """
                 SELECT
@@ -24,9 +26,11 @@ class LocalStatisticDataSource {
         }
         
         return observation.publisher(in: database.dbQueue)
+            .map { Statistic(totalPokemonCount: $0.totalPokemonCount, caughtPokemonCount: $0.caughtPokemonCount) }
+            .eraseToAnyPublisher()
     }
     
-    func observeCompletionRateByType(userId: String) -> DatabasePublishers.Value<[CompletionRateByType]> {
+    public func getCompletionRateByType(userId: UserId) -> AnyPublisher<[StatisticByType], Error> {
         let observation = ValueObservation.tracking { db in
             let sql = """
                 WITH TypeCounts AS (
@@ -56,5 +60,14 @@ class LocalStatisticDataSource {
         }
         
         return observation.publisher(in: database.dbQueue)
+            .map { types in
+                types.map {
+                    StatisticByType(
+                        type: PokemonType.fromInt(value: $0.type),
+                        statistic: Statistic(totalPokemonCount: $0.totalPokemonCount, caughtPokemonCount: $0.caughtPokemonCount)
+                    )
+                }
+            }
+            .eraseToAnyPublisher()
     }
 }

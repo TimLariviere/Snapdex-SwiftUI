@@ -1,19 +1,19 @@
 import GRDB
 
-struct PokemonWithRelations: Decodable, FetchableRecord {
-    var pokemon: PokemonEntity
-    var translations: [PokemonTranslationEntity]
-    var types: [PokemonTypeEntity]
-    var ability: AbilityWithTranslation
-    var category: CategoryWithTranslation
+public struct PokemonWithRelations: Decodable, FetchableRecord, Sendable {
+    public var pokemon: PokemonEntity
+    public var translations: [PokemonTranslationEntity]
+    public var types: [PokemonTypeEntity]
+    public var ability: AbilityWithTranslation
+    public var category: CategoryWithTranslation
 }
 
-struct AbilityWithTranslation: Decodable, FetchableRecord {
-    var ability: AbilityEntity
-    var translations: [AbilityTranslationEntity]
+public struct AbilityWithTranslation: Decodable, FetchableRecord, Sendable {
+    public var ability: AbilityEntity
+    public var translations: [AbilityTranslationEntity]
 }
 
-struct CategoryWithTranslation: Decodable, FetchableRecord {
-    var category: CategoryEntity
-    var translations: [CategoryTranslationEntity]
+public struct CategoryWithTranslation: Decodable, FetchableRecord, Sendable {
+    public var category: CategoryEntity
+    public var translations: [CategoryTranslationEntity]
 }

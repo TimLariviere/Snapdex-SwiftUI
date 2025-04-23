@@ -12,7 +12,7 @@ struct TypeUi {
             case .dragon: TypeUi(name: "Dragon", color: Color("Dragon", bundle: .module), image: Image("Dragon", bundle: .module))
             case .electric: TypeUi(name: "Electric", color: Color("Electric", bundle: .module), image: Image("Electric", bundle: .module))
             case .fairy: TypeUi(name: "Fairy", color: Color("Fairy", bundle: .module), image: Image("Fairy", bundle: .module))
-            case .figthing: TypeUi(name: "Fighting", color: Color("Fighting", bundle: .module), image: Image("Fighting", bundle: .module))
+            case .fighting: TypeUi(name: "Fighting", color: Color("Fighting", bundle: .module), image: Image("Fighting", bundle: .module))
             case .fire: TypeUi(name: "Fire", color: Color("Fire", bundle: .module), image: Image("Fire", bundle: .module))
             case .flying: TypeUi(name: "Flying", color: Color("Flying", bundle: .module), image: Image("Flying", bundle: .module))
             case .ghost: TypeUi(name: "Ghost", color: Color("Ghost", bundle: .module), image: Image("Ghost", bundle: .module))

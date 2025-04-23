@@ -1,9 +1,9 @@
-public enum PokemonType: CaseIterable {
+public enum PokemonType: CaseIterable, Sendable, Hashable {
     case bug
     case dragon
     case electric
     case fairy
-    case figthing
+    case fighting
     case fire
     case flying
     case ghost
@@ -24,7 +24,7 @@ public extension PokemonType {
             case 1: .dragon
             case 2: .electric
             case 3: .fairy
-            case 4: .figthing
+            case 4: .fighting
             case 5: .fire
             case 6: .flying
             case 7: .ghost

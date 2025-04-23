@@ -1,36 +1,31 @@
 import SwiftUI
+import Combine
 import SnapdexDesignSystem
 import SnapdexDomain
 
 struct PokedexScreen: View {
     @Environment(Router<PokedexTabDestination>.self) private var router
     @Environment(NavBarVisibility.self) private var navBarVisibility
-    @State private var search: String = ""
+    @State private var viewModel: PokedexViewModel
+    
+    init(deps: AppDependencies, pokemonsPublisher: AnyPublisher<[Pokemon], Never>) {
+        self._viewModel = State(initialValue: PokedexViewModel(deps: deps, pokemonsPublisher: pokemonsPublisher))
+    }
     
     var body: some View {
         SnapdexScaffold {
             ZStack(alignment: .bottomTrailing) {
                 VStack {
-                    SearchView(text: $search, hint: "Search Pokémon...")
+                    SearchView(text: $viewModel.search, hint: "Search Pokémon...")
                         .padding(.horizontal, 16)
                     
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 8)], spacing: 8) {
                             ForEach(0..<151, id: \.self) { index in
-                                if (index == 0) {
-                                    let pokemon = Pokemon(
-                                        id: 1,
-                                        name: [ Locale(identifier: "en") : "Charizard" ],
-                                        description: [ Locale(identifier: "en") : "Charizard" ],
-                                        types: [ .fire ],
-                                        weaknesses: [ .water ],
-                                        weight: Measurement(value: 100, unit: .kilograms),
-                                        height: Measurement(value: 1.7, unit: .meters),
-                                        category: PokemonCategory(id: 0, name: [ Locale(identifier: "en") : "Lizard" ]),
-                                        ability: PokemonAbility(id: 0, name: [ Locale(identifier: "en") : "Blaze" ]),
-                                        maleToFemaleRatio: 0.9
-                                    )
-                                    
+                                let pokemonId = index + 1
+                                let pokemon = viewModel.allPokemons.first { $0.id == pokemonId }
+                                
+                                if let pokemon = pokemon {                                    
                                     PokemonItem(pokemon: pokemon)
                                         .aspectRatio(4.0/5.0, contentMode: .fit)
                                         .onTapGesture {
@@ -62,7 +57,10 @@ struct PokedexScreen: View {
 
 #Preview {
     AppTheme {
-        PokedexScreen()
+        PokedexScreen(
+            deps: MockAppDependencies(),
+            pokemonsPublisher: CurrentValueSubject<[Pokemon], Never>([]).eraseToAnyPublisher()
+        )
             .environment(Router<PokedexTabDestination>())
             .environment(NavBarVisibility())
     }
