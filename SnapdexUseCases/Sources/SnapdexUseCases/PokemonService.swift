@@ -15,7 +15,7 @@ public enum ResetForUserError : Error {
 }
 
 public protocol PokemonServicing : Sendable {
-    func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Error>
+    func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Never>
     func getById(pokemonId: PokemonId) async -> Result<Pokemon?, GetPokemonByIdError>
     func catchPokemon(userId: UserId, pokemonId: PokemonId) async -> Result<Void, CatchPokemonError>
     func resetForUser(userId: UserId) async -> Result<Void, ResetForUserError>
@@ -25,15 +25,22 @@ public final class PokemonService : PokemonServicing {
     private let crashReporter: CrashReporter
     private let localUserPokemons: LocalUserPokemonDataSource
     private let localPokemons: LocalPokemonDataSource
+    private let remoteUserPokemons: RemoteUserPokemonDataSource
     
-    public init(crashReporter: CrashReporter, localUserPokemons: LocalUserPokemonDataSource, localPokemons: LocalPokemonDataSource) {
+    public init(crashReporter: CrashReporter, localUserPokemons: LocalUserPokemonDataSource, localPokemons: LocalPokemonDataSource, remoteUserPokemons: RemoteUserPokemonDataSource) {
         self.crashReporter = crashReporter
         self.localUserPokemons = localUserPokemons
         self.localPokemons = localPokemons
+        self.remoteUserPokemons = remoteUserPokemons
     }
     
-    public func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Error> {
+    public func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Never> {
         return localUserPokemons.observeAllForUser(userId: userId)
+            .catch { error -> AnyPublisher<[Pokemon], Never> in
+                self.crashReporter.recordException(error: error, metadata: ["userId": userId])
+                return Just([Pokemon]()).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
     
     public func getById(pokemonId: PokemonId) async -> Result<Pokemon?, GetPokemonByIdError> {
@@ -41,7 +48,7 @@ public final class PokemonService : PokemonServicing {
             let pokemon = try await localPokemons.getById(pokemonId: pokemonId)
             return .success(pokemon)
         } catch {
-            crashReporter.recordException(error: error, metadata: ["pokemonId": pokemonId.description])
+            crashReporter.recordException(error: error, metadata: ["pokemonId": String(pokemonId)])
             return .failure(.getFailed)
         }
     }
@@ -68,7 +75,17 @@ public final class PokemonService : PokemonServicing {
         do {
             try await localUserPokemons.deleteAllForUser(userId: userId)
             
-            // TODO
+            let deleteResult = await retryOnCondition {
+                await self.remoteUserPokemons.deleteAllForUser(userId: userId)
+            } shouldRetry: { $0.isNetworkError }
+            
+            if case let .failure(error) = deleteResult {
+                switch error {
+                    case .networkError: ()
+                    case .failure(let actualError):
+                        crashReporter.recordException(error: actualError, metadata: nil)
+                }
+            }
             
             return .success(())
         } catch {

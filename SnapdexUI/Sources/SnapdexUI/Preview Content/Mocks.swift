@@ -43,8 +43,8 @@ final class MockClassifier : Classifier {
 }
 
 final class MockPokemonService: PokemonServicing {
-    func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Error> {
-        return CurrentValueSubject<[Pokemon], Error>([]).eraseToAnyPublisher()
+    func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Never> {
+        return Just([Pokemon]()).eraseToAnyPublisher()
     }
     
     func getById(pokemonId: PokemonId) async -> Result<Pokemon?, GetPokemonByIdError> {
@@ -58,6 +58,7 @@ final class MockPokemonService: PokemonServicing {
     func resetForUser(userId: UserId) async -> Result<Void, ResetForUserError> {
         return .success(())
     }
+    
 }
 
 final class MockAppDependencies : AppDependencies {

@@ -192,7 +192,7 @@ public final class AuthService: AuthServicing {
 
             let remoteUserPokemons = switch remoteUserPokemonsResult {
                 case .success(let pokemons): pokemons
-                case .failure(let error): [Synced<PokemonId>]()
+                case .failure(_): [Synced<PokemonId>]()
             }
 
             try await localUsers.upsert(user: user)

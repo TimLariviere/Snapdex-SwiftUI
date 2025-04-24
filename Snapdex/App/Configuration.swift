@@ -23,7 +23,7 @@ final class Configuration: AppDependencies {
         self._authServicing = AuthService(analyticsTracker: analyticsTracker, crashReporter: crashReporter, authProvider: authProvider, localUsers: localUsers, localUserPokemons: localUserPokemons, remoteUsers: remoteUsers, remoteUserPokemons: remoteUserPokemons)
         self._userDataValidator = UserDataValidator()
         self._classifier = ClassifierFactory()
-        self._pokemonServicing = PokemonService(crashReporter: crashReporter, localUserPokemons: localUserPokemons, localPokemons: localPokemons)
+        self._pokemonServicing = PokemonService(crashReporter: crashReporter, localUserPokemons: localUserPokemons, localPokemons: localPokemons, remoteUserPokemons: remoteUserPokemons)
     }
     
     var authServicing: AuthServicing { _authServicing }
