@@ -1,16 +1,22 @@
 import GRDB
 import SnapdexDomain
 
-public final class EvolutionChainSource: LocalEvolutionChainDataSource {
+public final class EvolutionChainDataSource: LocalEvolutionChainDataSource {
     private let database: SnapdexDatabase
     
-    init(database: SnapdexDatabase) {
+    public init(database: SnapdexDatabase) {
         self.database = database
     }
     
     public func getForPokemon(pokemonId: PokemonId) async throws -> EvolutionChain? {
         let entity = try await database.dbQueue.read { db in
             try EvolutionChainEntity
+                .including(required: EvolutionChainEntity.startingPokemon
+                    .including(all: PokemonEntity.translations)
+                    .including(all: PokemonEntity.types)
+                    .including(required: PokemonEntity.ability.including(all: AbilityEntity.translations))
+                    .including(required: PokemonEntity.category.including(all: CategoryEntity.translations))
+                )
                 .including(
                     all: EvolutionChainEntity.links
                         .including(
@@ -22,7 +28,7 @@ public final class EvolutionChainSource: LocalEvolutionChainDataSource {
                         )
                 )
                 .filter(sql: """
-                    id IN (
+                    EvolutionChains.id IN (
                         SELECT ec.id 
                         FROM EvolutionChains ec
                         LEFT OUTER JOIN EvolutionChainLinks ecl ON ecl.evolutionChainId = ec.id

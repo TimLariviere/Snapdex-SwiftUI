@@ -11,8 +11,8 @@ public struct PokemonEntity: Codable, FetchableRecord, TableRecord, Identifiable
     public static let databaseTableName: String = "Pokemons"
     public static let translations = hasMany(PokemonTranslationEntity.self)
     public static let types = hasMany(PokemonTypeEntity.self)
-    public static let ability = belongsTo(AbilityEntity.self)
-    public static let category = belongsTo(CategoryEntity.self)
+    public static let ability = belongsTo(AbilityEntity.self, using: ForeignKey(["abilityId"]))
+    public static let category = belongsTo(CategoryEntity.self, using: ForeignKey(["categoryId"]))
     
     enum Columns: String, ColumnExpression {
         case categoryId

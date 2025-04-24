@@ -1,69 +1,27 @@
 import SwiftUI
 import SnapdexDomain
+import SnapdexUseCases
 
-@Observable class PokemonDetailViewModel {
-    private let pokemonId: PokemonId
+@MainActor @Observable class PokemonDetailViewModel {
     var pokemon: Pokemon? = nil
     var evolutionChain: EvolutionChain? = nil
     
+    private let pokemonId: PokemonId
+    private let pokemonService: PokemonServicing
+    private let localEvolutionChains: LocalEvolutionChainDataSource
+    
     init(deps: AppDependencies, pokemonId: PokemonId) {
-        // todo: inject dependencies
         self.pokemonId = pokemonId
+        self.pokemonService = deps.pokemonServicing
+        self.localEvolutionChains = deps.localEvolutionChains
     }
     
-    func loadPokemon() {
-        pokemon = Pokemon(
-            id: 6,
-            name: [ Locale(identifier: "en") : "Charizard" ],
-            description: [ Locale(identifier: "en") : "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
-            types: [ .fire, .flying ],
-            weaknesses: [ .bug ],
-            weight: Measurement(value: 100, unit: .kilograms),
-            height: Measurement(value: 1.7, unit: .meters),
-            category: PokemonCategory(id: 0, name: [ Locale(identifier: "en") : "Lizard" ]),
-            ability: PokemonAbility(id: 0, name: [ Locale(identifier: "en") : "Blaze" ]),
-            maleToFemaleRatio: 0.875
-        )
-        
-        evolutionChain = EvolutionChain(
-            startingPokemon: Pokemon(
-                id: 4,
-                name: [ Locale(identifier: "en") : "Charmander" ],
-                description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
-                types: [ .fire, .flying ],
-                weaknesses: [ .bug ],
-                weight: Measurement(value: 120, unit: .kilograms),
-                height: Measurement(value: 1.7, unit: .meters),
-                category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
-                ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
-                maleToFemaleRatio: 0.875
-            ),
-            evolutions: [
-                16: Pokemon(
-                    id: 5,
-                    name: [ Locale(identifier: "en") : "Charmeleon" ],
-                    description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
-                    types: [ .fire, .flying ],
-                    weaknesses: [ .bug ],
-                    weight: Measurement(value: 120, unit: .kilograms),
-                    height: Measurement(value: 1.7, unit: .meters),
-                    category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
-                    ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
-                    maleToFemaleRatio: 0.875
-                ),
-                32: Pokemon(
-                    id: 6,
-                    name: [ Locale(identifier: "en") : "Charizard" ],
-                    description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
-                    types: [ .fire, .flying ],
-                    weaknesses: [ .bug ],
-                    weight: Measurement(value: 120, unit: .kilograms),
-                    height: Measurement(value: 1.7, unit: .meters),
-                    category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
-                    ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
-                    maleToFemaleRatio: 0.875
-                ),
-            ]
-        )
+    func loadPokemon() async {
+        do {
+            pokemon = try await pokemonService.getById(pokemonId: pokemonId).get()
+            evolutionChain = try await localEvolutionChains.getForPokemon(pokemonId: pokemonId)!
+        } catch {
+            
+        }
     }
 }

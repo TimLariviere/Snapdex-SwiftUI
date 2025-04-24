@@ -20,8 +20,7 @@ public struct PokedexTabCoordinator: View {
     public var body: some View {
         NavigationStack(path: $router.path) {
             PokedexScreen(
-                deps: deps,
-                pokemonsPublisher: CurrentValueSubject<[Pokemon], Never>([]).eraseToAnyPublisher()
+                deps: deps
             )
                 .navigationDestination(for: PokedexTabDestination.self) { destination in
                     switch destination {

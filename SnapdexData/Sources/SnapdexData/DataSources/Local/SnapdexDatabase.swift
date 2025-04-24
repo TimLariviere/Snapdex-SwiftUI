@@ -30,6 +30,11 @@ public final class SnapdexDatabase: @unchecked Sendable {
         }
         
         var config = Configuration()
+        config.prepareDatabase { db in
+            db.trace(options: .statement) { event in
+                print("SQL: \(event)")
+            }
+        }
         config.foreignKeysEnabled = true
         dbQueue = try! DatabaseQueue(path: destinationURL.path, configuration: config)
     }

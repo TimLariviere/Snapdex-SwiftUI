@@ -8,8 +8,8 @@ struct PokedexScreen: View {
     @Environment(NavBarVisibility.self) private var navBarVisibility
     @State private var viewModel: PokedexViewModel
     
-    init(deps: AppDependencies, pokemonsPublisher: AnyPublisher<[Pokemon], Never>) {
-        self._viewModel = State(initialValue: PokedexViewModel(deps: deps, pokemonsPublisher: pokemonsPublisher))
+    init(deps: AppDependencies) {
+        self._viewModel = State(initialValue: PokedexViewModel(deps: deps))
     }
     
     var body: some View {
@@ -51,6 +51,10 @@ struct PokedexScreen: View {
         }
         .onAppear {
             navBarVisibility.isVisible = true
+            viewModel.start()
+        }
+        .onDisappear {
+            viewModel.stop()
         }
     }
 }
@@ -58,8 +62,7 @@ struct PokedexScreen: View {
 #Preview {
     AppTheme {
         PokedexScreen(
-            deps: MockAppDependencies(),
-            pokemonsPublisher: CurrentValueSubject<[Pokemon], Never>([]).eraseToAnyPublisher()
+            deps: MockAppDependencies()
         )
             .environment(Router<PokedexTabDestination>())
             .environment(NavBarVisibility())

@@ -22,6 +22,7 @@ actor FirebaseAuthProviderState{
         self.handle = auth.addStateDidChangeListener { _, user in
             subject.send(user?.uid)
         }
+        subject.send(auth.currentUser?.uid)
     }
     
     func removeListener(auth: Auth) {

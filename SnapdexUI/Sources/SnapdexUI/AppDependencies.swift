@@ -7,6 +7,7 @@ public protocol AppDependencies: Sendable {
     var classifier: Classifier { get }
     var pokemonServicing: PokemonServicing { get }
     var userDataValidator: UserDataValidator { get }
+    var localEvolutionChains: LocalEvolutionChainDataSource { get }
 }
 
 private struct AppDependenciesKey: EnvironmentKey {

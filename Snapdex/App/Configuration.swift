@@ -8,6 +8,7 @@ final class Configuration: AppDependencies {
     private let _classifier: Classifier
     private let _pokemonServicing: PokemonServicing
     private let _userDataValidator: UserDataValidator
+    private let _localEvolutionChains: LocalEvolutionChainDataSource
     
     init() {
         let analyticsTracker = FirebaseAnalyticsTracker()
@@ -24,10 +25,12 @@ final class Configuration: AppDependencies {
         self._userDataValidator = UserDataValidator()
         self._classifier = ClassifierFactory()
         self._pokemonServicing = PokemonService(crashReporter: crashReporter, localUserPokemons: localUserPokemons, localPokemons: localPokemons, remoteUserPokemons: remoteUserPokemons)
+        self._localEvolutionChains = EvolutionChainDataSource(database: database)
     }
     
     var authServicing: AuthServicing { _authServicing }
     var userDataValidator: UserDataValidator { _userDataValidator }
     var classifier: Classifier { _classifier }
     var pokemonServicing: PokemonServicing { _pokemonServicing }
+    var localEvolutionChains: LocalEvolutionChainDataSource { _localEvolutionChains }
 }

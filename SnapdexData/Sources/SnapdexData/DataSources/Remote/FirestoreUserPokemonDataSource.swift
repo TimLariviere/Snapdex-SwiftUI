@@ -79,7 +79,7 @@ public final class FirebaseUserPokemonDataSource: RemoteUserPokemonDataSource {
                 case .firestoreNetworkError: .networkError
                 default: .failure(error)
             }
-            return .failure(.failure(error))
+            return .failure(err)
         }
     }
 }

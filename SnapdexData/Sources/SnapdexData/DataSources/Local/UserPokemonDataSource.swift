@@ -17,7 +17,7 @@ public final class UserPokemonDataSource : LocalUserPokemonDataSource {
                 .including(required: PokemonEntity.ability.including(all: AbilityEntity.translations))
                 .including(required: PokemonEntity.category.including(all: CategoryEntity.translations))
                 .filter(sql: """
-                id IN (
+                Pokemons.id IN (
                     SELECT pokemonId FROM UserPokemons
                     WHERE userId = ?
                 )

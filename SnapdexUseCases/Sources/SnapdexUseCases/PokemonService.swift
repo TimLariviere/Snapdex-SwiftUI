@@ -2,15 +2,15 @@ import Combine
 import Foundation
 import SnapdexDomain
 
-public enum GetPokemonByIdError : Error {
+public enum GetPokemonByIdError : Error, Sendable {
     case getFailed
 }
 
-public enum CatchPokemonError : Error {
+public enum CatchPokemonError : Error, Sendable {
     case catchFailed
 }
 
-public enum ResetForUserError : Error {
+public enum ResetForUserError : Error, Sendable {
     case resetFailed
 }
 

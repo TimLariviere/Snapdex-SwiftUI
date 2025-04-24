@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Pokemon : Equatable {
+public struct Pokemon : Sendable, Equatable {
     public let id: PokemonId
     public let name: [Locale: String]
     public let description: [Locale: String]

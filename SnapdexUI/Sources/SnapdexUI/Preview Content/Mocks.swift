@@ -1,5 +1,6 @@
-import SnapdexDomain
 import Combine
+import SwiftUI
+import SnapdexDomain
 import SnapdexUseCases
 
 final class MockAuthService: AuthServicing {
@@ -8,7 +9,9 @@ final class MockAuthService: AuthServicing {
     }
     
     func getCurrentUserPublisher() -> AnyPublisher<User?, Never> {
-        return Just(nil).eraseToAnyPublisher()
+        return Just(
+            User(id: "user", avatarId: 1, name: "Maximilian", email: "maximilian@snapdex.com")
+        ).eraseToAnyPublisher()
     }
     
     func register(avatarId: AvatarId, name: String, email: String, password: String) async -> Result<Void, SnapdexUseCases.RegisterError> {
@@ -44,11 +47,61 @@ final class MockClassifier : Classifier {
 
 final class MockPokemonService: PokemonServicing {
     func getPokemonCaughtByUser(userId: UserId) -> AnyPublisher<[Pokemon], Never> {
-        return Just([Pokemon]()).eraseToAnyPublisher()
+        return Just([
+            Pokemon(
+                id: 4,
+                name: [ Locale(identifier: "en") : "Charmander" ],
+                description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                types: [ .fire, .flying ],
+                weaknesses: [ .bug ],
+                weight: Measurement(value: 120, unit: .kilograms),
+                height: Measurement(value: 1.7, unit: .meters),
+                category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
+                ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
+                maleToFemaleRatio: 0.875
+            ),
+            Pokemon(
+                id: 5,
+                name: [ Locale(identifier: "en") : "Charmeleon" ],
+                description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                types: [ .fire, .flying ],
+                weaknesses: [ .bug ],
+                weight: Measurement(value: 120, unit: .kilograms),
+                height: Measurement(value: 1.7, unit: .meters),
+                category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
+                ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
+                maleToFemaleRatio: 0.875
+            ),
+            Pokemon(
+                id: 6,
+                name: [ Locale(identifier: "en") : "Charizard" ],
+                description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                types: [ .fire, .flying ],
+                weaknesses: [ .bug ],
+                weight: Measurement(value: 120, unit: .kilograms),
+                height: Measurement(value: 1.7, unit: .meters),
+                category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
+                ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
+                maleToFemaleRatio: 0.875
+            ),
+        ]).eraseToAnyPublisher()
     }
     
     func getById(pokemonId: PokemonId) async -> Result<Pokemon?, GetPokemonByIdError> {
-        return .success(nil)
+        return .success(
+            Pokemon(
+                id: 6,
+                name: [ Locale(identifier: "en") : "Charizard" ],
+                description: [ Locale(identifier: "en") : "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                types: [ .fire, .flying ],
+                weaknesses: [ .bug ],
+                weight: Measurement(value: 100, unit: .kilograms),
+                height: Measurement(value: 1.7, unit: .meters),
+                category: PokemonCategory(id: 0, name: [ Locale(identifier: "en") : "Lizard" ]),
+                ability: PokemonAbility(id: 0, name: [ Locale(identifier: "en") : "Blaze" ]),
+                maleToFemaleRatio: 0.875
+            )
+        )
     }
     
     func catchPokemon(userId: UserId, pokemonId: PokemonId) async -> Result<Void, CatchPokemonError> {
@@ -58,7 +111,51 @@ final class MockPokemonService: PokemonServicing {
     func resetForUser(userId: UserId) async -> Result<Void, ResetForUserError> {
         return .success(())
     }
-    
+}
+
+final class MockEvolutionChainDataSource: LocalEvolutionChainDataSource {
+    func getForPokemon(pokemonId: PokemonId) async throws -> EvolutionChain? {
+        return EvolutionChain(
+            startingPokemon: Pokemon(
+                id: 4,
+                name: [ Locale(identifier: "en") : "Charmander" ],
+                description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                types: [ .fire, .flying ],
+                weaknesses: [ .bug ],
+                weight: Measurement(value: 120, unit: .kilograms),
+                height: Measurement(value: 1.7, unit: .meters),
+                category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
+                ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
+                maleToFemaleRatio: 0.875
+            ),
+            evolutions: [
+                16: Pokemon(
+                    id: 5,
+                    name: [ Locale(identifier: "en") : "Charmeleon" ],
+                    description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                    types: [ .fire, .flying ],
+                    weaknesses: [ .bug ],
+                    weight: Measurement(value: 120, unit: .kilograms),
+                    height: Measurement(value: 1.7, unit: .meters),
+                    category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
+                    ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
+                    maleToFemaleRatio: 0.875
+                ),
+                32: Pokemon(
+                    id: 6,
+                    name: [ Locale(identifier: "en") : "Charizard" ],
+                    description: [ Locale(identifier: "en"): "If Charizard becomes truly angered, the flame at the tip of its tail burns in a light blue shade." ],
+                    types: [ .fire, .flying ],
+                    weaknesses: [ .bug ],
+                    weight: Measurement(value: 120, unit: .kilograms),
+                    height: Measurement(value: 1.7, unit: .meters),
+                    category: PokemonCategory(id: 0, name: [Locale(identifier: "en") : "Lizard" ]),
+                    ability: PokemonAbility(id: 0, name: [Locale(identifier: "en") : "Blaze" ]),
+                    maleToFemaleRatio: 0.875
+                ),
+            ]
+        )
+    }
 }
 
 final class MockAppDependencies : AppDependencies {
@@ -75,4 +172,7 @@ final class MockAppDependencies : AppDependencies {
     
     let _pokemonService = MockPokemonService()
     var pokemonServicing: PokemonServicing { _pokemonService }
+    
+    let _localEvolutionChains = MockEvolutionChainDataSource()
+    var localEvolutionChains: LocalEvolutionChainDataSource { _localEvolutionChains }
 }

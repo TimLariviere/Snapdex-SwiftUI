@@ -70,6 +70,7 @@ struct PokemonRow : View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 124)
             .background(theme.colors.surface)
+            .clipShape(theme.shapes.regular)
             .overlay {
                 theme.shapes.regular
                     .stroke(theme.colors.outline, lineWidth: 1)

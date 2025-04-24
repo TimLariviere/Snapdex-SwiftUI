@@ -1,4 +1,4 @@
-public struct EvolutionChain {
+public struct EvolutionChain: Sendable {
     public let startingPokemon: Pokemon
     public let evolutions: [Level: Pokemon]
     
