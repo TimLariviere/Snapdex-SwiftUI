@@ -6,12 +6,22 @@ public enum CreateUserError : Error {
     case invalidPasswordError
     case invalidEmailError
     case emailAlreadyUsedError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum SignInError : Error {
     case failure(Error)
     case networkError
     case invalidCredentialsError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum AuthSendPasswordResetEmailError : Error {
@@ -19,6 +29,11 @@ public enum AuthSendPasswordResetEmailError : Error {
     case networkError
     case noSuchEmailError
     case invalidEmailError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum ReauthenticateError : Error {
@@ -26,16 +41,26 @@ public enum ReauthenticateError : Error {
     case networkError
     case invalidPasswordError
     case invalidEmailError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum UpdatePasswordError : Error {
     case failure(Error)
     case networkError
     case invalidPasswordError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public protocol AuthProvider: Sendable {
-    func getCurrentUserId() -> UserId?
+    func getCurrentUserId() async -> UserId?
     func getCurrentUserIdAsPublisher() -> AnyPublisher<UserId?, Never>
     func createUser(withEmail email: String, password: String) async -> Result<UserId, CreateUserError>
     func signIn(withEmail email: String, password: String) async -> Result<UserId, SignInError>

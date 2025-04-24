@@ -1,16 +1,31 @@
 public enum GetAllForRemoteUserError : Error {
     case failure(Error)
     case networkError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum UpsertRemoteUserPokemonError : Error {
     case failure(Error)
     case networkError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum DeleteAllForRemoteUserError : Error {
     case failure(Error)
     case networkError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public protocol RemoteUserPokemonDataSource : Sendable {

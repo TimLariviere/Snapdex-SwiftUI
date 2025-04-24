@@ -1,16 +1,31 @@
 public enum GetRemoteUserError : Error {
     case failure(Error)
     case networkError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum UpsertRemoteUserError : Error {
     case failure(Error)
     case networkError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public enum DeleteRemoteUserError : Error {
     case failure(Error)
     case networkError
+    
+    public var isNetworkError: Bool {
+        if case .networkError = self { return true }
+        return false
+    }
 }
 
 public protocol RemoteUserDataSource : Sendable {

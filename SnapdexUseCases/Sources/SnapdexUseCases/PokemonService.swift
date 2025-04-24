@@ -48,7 +48,7 @@ public final class PokemonService : PokemonServicing {
     
     public func catchPokemon(userId: UserId, pokemonId: PokemonId) async -> Result<Void, CatchPokemonError> {
         do {
-            let timestamp: UInt64 = UInt64(Date().timeIntervalSince1970 * 1000)
+            let timestamp = getTimestamp()
             
             if (try await localUserPokemons.exists(userId: userId, pokemonId: pokemonId)) {
                 return .success(())

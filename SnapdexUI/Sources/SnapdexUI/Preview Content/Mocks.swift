@@ -3,6 +3,18 @@ import Combine
 import SnapdexUseCases
 
 final class MockAuthService: AuthServicing {
+    func isLoggedIn() async -> Bool {
+        return false
+    }
+    
+    func getCurrentUserPublisher() -> AnyPublisher<User?, Never> {
+        return Just(nil).eraseToAnyPublisher()
+    }
+    
+    func register(avatarId: AvatarId, name: String, email: String, password: String) async -> Result<Void, SnapdexUseCases.RegisterError> {
+        return .success(())
+    }
+    
     func login(email: String, password: String) async -> Result<Void, SnapdexUseCases.LoginError> {
         return .success(())
     }
@@ -11,7 +23,11 @@ final class MockAuthService: AuthServicing {
         return .success(())
     }
     
-    func register(avatarId: AvatarId, name: String, email: String, password: String) async -> Result<Void, SnapdexUseCases.RegisterError> {
+    func logout() async {
+        
+    }
+    
+    func deleteCurrentUser() async -> Result<Void, DeleteCurrentUserError> {
         return .success(())
     }
 }
