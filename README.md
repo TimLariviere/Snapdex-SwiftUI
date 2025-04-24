@@ -1,69 +1,109 @@
-# Snapdex - SwiftUI Edition
+# Snapdex — SwiftUI Edition
 
-_Check out [Snapdex – Compose Edition](https://github.com/TimLariviere/Snapdex-Compose) to see my Android development in action._
+**Snapdex** is a modern iOS app built with **SwiftUI** and **Swift 6**, inspired by the idea of a personal Pokédex. Users can snap photos of Pokémon-themed merchandise (like plushes, trading cards, or figurines) and use AI to identify and catalog them in their collection.
 
+While playful in concept, **Snapdex is a serious, production-quality showcase** of mobile architecture, design systems, offline-first strategies, and integration with real-world features like camera, authentication, and analytics.
+
+> ✨ Looking for the Android version? Check out [Snapdex – Compose Edition](https://github.com/TimLariviere/Snapdex-Compose)
+
+## 🎯 Why I Built Snapdex
+
+Snapdex started as a personal project to explore **SwiftUI** and demonstrate how I approach mobile development as a Senior/Staff-level engineer.
+
+It also served as a way to translate my experience from .NET MAUI and Xamarin — where I’ve built production apps using patterns like MVVM and MVU (via Fabulous, which I co-created) — into the Compose ecosystem. The architectural foundations remain the same: clean separation of concerns, unidirectional data flow, and a strong focus on long-term maintainability.
+
+Rather than focus on flashy features, my goal was to create a **well-architected, well-rounded, and production-ready app** — the kind of project that goes beyond what demos well and instead shows the **core engineering work that matters**.
+
+That includes things like:
+
+- A clean, modular architecture
+- Offline-first data access
+- Navigation and UI structure that scales
+- Proper authentication flows (login, register, forgot password)
+- Custom UI components
+- Dark mode support
+- Secure API key handling
+- Analytics and crash monitoring
+- Maintainable design system
+- Business validation and error handling
+
+These aren’t the “shiny” parts of app development — but they’re essential to real-world mobile apps, and I wanted Snapdex to reflect that.
+
+## ✨ Features
+
+- 📸 Snap photos of Pokémon-themed merchandise in the real world
+- 🧠 AI-powered recognition using **TensorFlow Lite** (on-device) and **OpenAI API** (cloud)
+- 📶 Offline-first with automatic sync to **Firebase Firestore**
+- 🧭 Intuitive navigation with persistent tab structure
+- 🔐 Full authentication flow: register, login, password reset
+- 🌙 System-aware dark mode support
+- 🎨 Material 3 design, custom themed to match designer-provided Figma
 
 <p align="center">
-  <img src="images/hero.png" height="300">
+  <img src="images/screen1.png" height="480" />
+  <img src="images/screen2.png" height="480" />
+  <img src="images/screen3.png" height="480" />
+  <img src="images/screen4.png" height="480" />
+  <img src="images/screen5.png" height="480" />
+  <img src="images/screen6.png" height="480" />
+  <img src="images/screen7.png" height="480" />
+  <img src="images/screen8.png" height="480" />
 </p>
 
-Snapdex is a production-quality **Pokédex-style app** built with Swift and SwiftUI. Users can snap pictures of Pokémon merchandise found in the wild (plushes, trading cards, etc.) to complete their own Pokédex, thanks to AI-powered recognition using **TensorFlow Lite** and **OpenAI**. This project serves as both a **learning experience** and a **professional showcase** of modern iOS app development.
+> 🎨 **Design by** [Rui Zhang](https://www.linkedin.com/in/ruizhang77)  
+> 🧪 Pokémon detail page inspired by [Junior Savaria’s Figma](https://www.figma.com/community/file/1202971127473077147)
 
-<p align="center">
-  <img src="images/screen1.png" height="500" />
-  <img src="images/screen2.png" height="500" />
-  <img src="images/screen3.png" height="500" />
-  <img src="images/screen4.png" height="500" />
-  <img src="images/screen5.png" height="500" />
-</p>
+## 🧠 Architecture Overview
 
-*Design by [Rui Zhang](https://www.linkedin.com/in/ruizhang77); Pokémon detail page heavily inspired by Figma design by [Junior Savaria](https://www.figma.com/community/file/1202971127473077147)*
+Snapdex is structured using a modular, scalable architecture inspired by Clean Architecture principles:
 
-## 🚀 Features
+- **MVVM Pattern**
+- **Separation of Concerns** – Independent `UI`, `Domain`, `Data`, and `App` packages
+- **Composable UI** – Pure, testable composables with state managed externally
+- **Offline-first** – SwiftData as source of truth, Firestore for cloud sync
+- **Custom Design System** – Fully themed using `@Environment`
 
-- Snap photos of Pokémon merchandise with your device camera
-- AI-powered Pokémon recognition using **TensorFlow Lite (on-device)** and **OpenAI API (cloud)**
-- Complete your personal Pokédex by discovering Pokémon-themed items in the real world
-- Offline-first architecture with Firebase Cloud sync
-- Full Light/Dark Mode support with custom theming
+👉 [Read the full Architecture Guide →](ARCHITECTURE.md)
 
-## 🛠️ Technical Highlights
-
-I'm planning to use the following technologies:
+## 🛠️ Tech Stack
 
 ### Core Technologies
-- Swift 6+
-- SwiftUI
-- Fastlane
+- **Swift 6**
+- **SwiftUI**
+- **Xcode**
+- **Combine**
+- **@Environment** / **@Observable**
 
-### Architecture & Design Patterns
-- MVVM Architecture
-- Repository Pattern
-- Dependency Injection
+### Data & Networking
+- **SwiftData** – Local persistence
+- **Firestore** – Cloud synchronization
+- **Alamofire** – Networking
+- **@AppStorage** – Preferences storage
 
-### Networking & Data
-- Alamofire: HTTP client
-- Realm: Local database with offline-first approach
-- Firebase Firestore: Cloud data synchronization
+### AI & Image Processing
+- **TensorFlow Lite** – On-device AI
+- **OpenAI API** – Cloud-based recognition
+- **Kingfisher** – Image loading
 
-### Authentication & Security
-- Firebase Authentication
-- Cryptography: Secure encrypted storage for OpenAI API keys
+### Auth & Security
+- **Firebase Authentication**
+- **Encrypted local storage** for secure key handling
 
-### Image Processing
-- TensorFlow Lite: On-device Pokemon recognition
-- OpenAI API: Cloud-based recognition for improved accuracy
-- Kingfisher: Image loading library with caching support
+### Tooling & Distribution
+- **Firebase Analytics**
+- **Firebase Crashlytics**
+- **Firebase App Distribution**
 
-### Analytics & Monitoring
-- Firebase Analytics
-- Firebase Crashlytics
-- Firebase App Distribution: Beta testing and deployment
+## 📦 Build & Setup
 
-## 📱 How to Build
+> 🔧 Requirements: Xcode 16.2
 
 TBA
 
+## 🌍 Internationalization
+
+Snapdex is localization-ready. All user-facing strings are externalized in Android resource files, making it easy to support new languages.
+
 ## 📄 License
 
-This project is licensed under the Apache 2.0 License - see the LICENSE file for details.
+This project is licensed under the Apache 2.0 License – see the [LICENSE](LICENSE.md) file for details.
