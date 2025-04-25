@@ -11,6 +11,7 @@ import SnapdexUseCases
     }
     var allPokemons: [Pokemon] = []
     var filteredPokemons: [Pokemon]? = nil
+    var recognitionState: RecognitionState? = nil
     
     @ObservationIgnored private var debouncedSearch = CurrentValueSubject<String, Never>("")
     @ObservationIgnored private var cancellables = Set<AnyCancellable>()
@@ -44,6 +45,21 @@ import SnapdexUseCases
                 self.allPokemons = pokemons
             }
             .store(in: &cancellables)
+    }
+    
+    func startRecognition() {
+        self.recognitionState = RecognitionState(isRecognizing: true, caught: nil)
+        
+        Task {
+            try await Task.sleep(for: .seconds(2))
+            let pokemon = allPokemons.randomElement()!
+            let pokemonCaught = PokemonCaught(id: pokemon.id, name: pokemon.name)
+            self.recognitionState = RecognitionState(isRecognizing: false, caught: pokemonCaught)
+        }
+    }
+    
+    func stopRecognition() {
+        self.recognitionState = nil
     }
     
     private func performSearch(searchText: String) {

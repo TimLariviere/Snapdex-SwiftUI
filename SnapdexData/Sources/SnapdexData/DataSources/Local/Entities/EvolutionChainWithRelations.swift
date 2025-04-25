@@ -12,15 +12,6 @@ struct EvolutionChainLinkWithRelations: Decodable, FetchableRecord {
 
 extension EvolutionChainWithRelations {
     public init(row: Row) {
-        for key in row.prefetchedRows.keys {
-            print("-> Key = \(key)")
-        }
-        
-        for name in row.scopes.names {
-            print("-> scope name = \(name)")
-        }
-        
-        print(row.debugDescription)
         startingPokemon = PokemonWithRelations(row: row.scopes["Pokemon"]!)
         evolvesTo = row.prefetchedRows["EvolutionChainLinks"]!.map { EvolutionChainLinkWithRelations(row: $0) }
     }
@@ -28,14 +19,6 @@ extension EvolutionChainWithRelations {
 
 extension EvolutionChainLinkWithRelations {
     public init(row: Row) {
-        for key in row.prefetchedRows.keys {
-            print("-> Key = \(key)")
-        }
-        
-        for name in row.scopes.names {
-            print("-> scope name = \(name)")
-        }
-        
         pokemon = PokemonWithRelations(row: row.scopes["Pokemon"]!)
         minLevel = row["minLevel"] as Int
     }

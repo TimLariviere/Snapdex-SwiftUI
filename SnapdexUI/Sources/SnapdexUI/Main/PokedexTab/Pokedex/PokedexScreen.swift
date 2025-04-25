@@ -53,10 +53,19 @@ struct PokedexScreen: View {
                 }
                 
                 SnapdexFloatingActionButton {
-                    
+                    navBarVisibility.isVisible = false
+                    viewModel.startRecognition()
                 }
                 .padding(.bottom, 64)
                 .padding(.horizontal, 16)
+            }
+        }
+        .overlay {
+            if let recognitionState = viewModel.recognitionState {
+                RecognitionOverlay(state: recognitionState) {
+                    viewModel.stopRecognition()
+                    navBarVisibility.isVisible = true
+                }
             }
         }
         .onAppear {

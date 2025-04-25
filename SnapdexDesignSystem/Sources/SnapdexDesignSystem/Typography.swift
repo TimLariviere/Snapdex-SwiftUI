@@ -18,6 +18,10 @@ public struct FontStyle: Sendable {
         self.fontSize = fontSize
         self.lineHeight = lineHeight
     }
+    
+    public func withSize(_ size: Int) -> FontStyle {
+        FontStyle(fontFamily: fontFamily, fontWeight: fontWeight, fontSize: size, lineHeight: lineHeight)
+    }
 }
 
 public struct Typography: Sendable {
