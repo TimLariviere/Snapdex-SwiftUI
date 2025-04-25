@@ -15,6 +15,7 @@ public final class PokemonDataSource: LocalPokemonDataSource {
                 .including(required: PokemonEntity.ability.including(all: AbilityEntity.translations))
                 .including(required: PokemonEntity.category.including(all: CategoryEntity.translations))
                 .asRequest(of: PokemonWithRelations.self)
+                .filter(key: pokemonId)
                 .fetchOne(db)
         }
         return entity?.toPokemon()

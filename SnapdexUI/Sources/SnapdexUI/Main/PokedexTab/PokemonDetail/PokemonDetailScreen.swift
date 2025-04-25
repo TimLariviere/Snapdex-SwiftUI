@@ -56,6 +56,7 @@ struct PokemonDetailScreen : View {
                 }
             } else {
                 Text("Loading")
+                    .frame(maxHeight: .infinity)
             }
         }
         .onAppear {

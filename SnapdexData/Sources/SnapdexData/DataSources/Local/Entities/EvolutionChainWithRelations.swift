@@ -16,15 +16,27 @@ extension EvolutionChainWithRelations {
             print("-> Key = \(key)")
         }
         
+        for name in row.scopes.names {
+            print("-> scope name = \(name)")
+        }
+        
         print(row.debugDescription)
-        startingPokemon = PokemonWithRelations(row: row)
+        startingPokemon = PokemonWithRelations(row: row.scopes["Pokemon"]!)
         evolvesTo = row.prefetchedRows["EvolutionChainLinks"]!.map { EvolutionChainLinkWithRelations(row: $0) }
     }
 }
 
 extension EvolutionChainLinkWithRelations {
     public init(row: Row) {
-        pokemon = PokemonWithRelations(row: row)
-        minLevel = 0
+        for key in row.prefetchedRows.keys {
+            print("-> Key = \(key)")
+        }
+        
+        for name in row.scopes.names {
+            print("-> scope name = \(name)")
+        }
+        
+        pokemon = PokemonWithRelations(row: row.scopes["Pokemon"]!)
+        minLevel = row["minLevel"] as Int
     }
 }

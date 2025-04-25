@@ -21,19 +21,29 @@ struct PokedexScreen: View {
                     
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 8)], spacing: 8) {
-                            ForEach(0..<151, id: \.self) { index in
-                                let pokemonId = index + 1
-                                let pokemon = viewModel.allPokemons.first { $0.id == pokemonId }
-                                
-                                if let pokemon = pokemon {                                    
+                            if let filteredPokemons = viewModel.filteredPokemons {
+                                ForEach(filteredPokemons, id: \.id) { pokemon in
                                     PokemonItem(pokemon: pokemon)
                                         .aspectRatio(4.0/5.0, contentMode: .fit)
                                         .onTapGesture {
                                             router.push(.pokemonDetail(pokemon.id))
                                         }
-                                } else {
-                                    UnknownItem(id: index + 1)
-                                        .aspectRatio(4.0/5.0, contentMode: .fit)
+                                }
+                            } else {
+                                ForEach(0..<151, id: \.self) { index in
+                                    let pokemonId = index + 1
+                                    let pokemon = viewModel.allPokemons.first { $0.id == pokemonId }
+                                    
+                                    if let pokemon = pokemon {
+                                        PokemonItem(pokemon: pokemon)
+                                            .aspectRatio(4.0/5.0, contentMode: .fit)
+                                            .onTapGesture {
+                                                router.push(.pokemonDetail(pokemon.id))
+                                            }
+                                    } else {
+                                        UnknownItem(id: index + 1)
+                                            .aspectRatio(4.0/5.0, contentMode: .fit)
+                                    }
                                 }
                             }
                         }
@@ -51,10 +61,6 @@ struct PokedexScreen: View {
         }
         .onAppear {
             navBarVisibility.isVisible = true
-            viewModel.start()
-        }
-        .onDisappear {
-            viewModel.stop()
         }
     }
 }
