@@ -44,7 +44,7 @@ public struct SnapdexOutlinedText: UIViewRepresentable {
 #Preview {
     AppTheme {
         SnapdexBackground {
-            SnapdexOutlinedText("Hello, worlda!")
+            SnapdexOutlinedText("Hello, world!")
             .fontStyle(Theme().typography.heading1)
         }
     }

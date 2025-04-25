@@ -1,5 +1,5 @@
 import SwiftUI
-//import Flow
+import Flow
 import SnapdexDesignSystem
 import SnapdexDomain
 
@@ -30,12 +30,12 @@ struct PokemonDetailScreen : View {
                         header(pokemon: pokemon)
                             .frame(maxWidth: .infinity)
                         
-                        //HFlow(spacing: 8) {
-                        //    ForEach(Array(types.enumerated()), id: \.offset) { _, type in
-                        //        TypeTag(typeUi: type)
-                        //    }
-                        //}
-                        //.frame(maxWidth: .infinity, alignment: .leading)
+                        HFlow(spacing: 8) {
+                            ForEach(Array(types.enumerated()), id: \.offset) { _, type in
+                                TypeTag(typeUi: type)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                             
                         Text(pokemon.description.translated(locale))
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -112,11 +112,11 @@ struct PokemonDetailScreen : View {
             Text("Weaknesses".uppercased())
                 .fontStyle(theme.typography.largeLabel)
             
-            //HFlow(spacing: 8) {
-            //    ForEach(Array(weaknesses.enumerated()), id: \.offset) { _, type in
-            //        TypeTag(typeUi: type)
-            //    }
-            //}
+            HFlow(spacing: 8) {
+                ForEach(Array(weaknesses.enumerated()), id: \.offset) { _, type in
+                    TypeTag(typeUi: type)
+                }
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
