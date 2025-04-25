@@ -9,10 +9,8 @@ struct UnknownItem: View {
         
     var body: some View {
         VStack(spacing: 4) {
-            Text("?")
+            SnapdexOutlinedText("?", textColor: .clear, outlineWidth: 4)
                 .fontStyle(theme.typography.heading1)
-                .outlineStroke(width: 4)
-                .foregroundStyle(theme.colors.surface)
                 .frame(maxHeight: .infinity)
             
             Text(String(format: "%04d", id))

@@ -77,10 +77,22 @@ public struct Typography: Sendable {
     public init() {}
 }
 
+private struct FontStyleKey: EnvironmentKey {
+    static let defaultValue = Typography().paragraph
+}
+
+extension EnvironmentValues {
+    public var fontStyle: FontStyle {
+        get { self[FontStyleKey.self] }
+        set { self[FontStyleKey.self] = newValue }
+    }
+}
+
 public extension View {
     func fontStyle(_ fontStyle: FontStyle) -> some View {
         self
             .font(.custom(fontStyle.fontFamily.rawValue, size: CGFloat(fontStyle.fontSize)))
+            .environment(\.fontStyle, fontStyle)
             .lineSpacing(CGFloat(fontStyle.lineHeight - fontStyle.fontSize))
     }
 }

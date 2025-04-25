@@ -105,10 +105,8 @@ struct LevelRow: View {
             }
             .frame(width: 40)
             
-            Text(String(format: "Level %d", level))
+            SnapdexOutlinedText(String(format: "Level %d", level))
                 .fontStyle(theme.typography.largeLabel)
-                .foregroundStyle(theme.colors.inOutline)
-                .outlineStroke(width: 1)
         }
     }
 }
