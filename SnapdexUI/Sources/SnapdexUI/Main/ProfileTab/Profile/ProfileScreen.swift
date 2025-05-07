@@ -56,6 +56,9 @@ struct ProfileScreen: View {
         .onReceive(viewModel.didLogout) {
             // TODO
         }
+        .onAppear {
+            navBarVisibility.isVisible = true
+        }
     }
     
     var userView: some View {
@@ -198,6 +201,9 @@ struct ProfileScreen: View {
         SnapdexPopup(
             title: "Progress reset",
             description: "This will reset your progression by deleting all the pokemons you caught, and all your sighting pictures. Are you sure you want to continue?",
+            onDismiss: {
+                showResetProgressDialog = false
+            },
             primaryButton: PopupButton(text: "Cancel") {
                 showResetProgressDialog = false
             },
@@ -206,9 +212,6 @@ struct ProfileScreen: View {
                 Task {
                     await viewModel.resetProgress()
                 }
-            },
-            onDismiss: {
-                showResetProgressDialog = false
             }
         )
     }
@@ -217,6 +220,9 @@ struct ProfileScreen: View {
         SnapdexPopup(
             title: "Account deletion",
             description: "You are about to permanently delete your account with all associated data. Are you sure you want to continue?",
+            onDismiss: {
+                showDeleteAccountDialog = false
+            },
             primaryButton: PopupButton(text: "Cancel") {
                 showDeleteAccountDialog = false
             },
@@ -225,9 +231,6 @@ struct ProfileScreen: View {
                 Task {
                     await viewModel.deleteAccount()
                 }
-            },
-            onDismiss: {
-                showDeleteAccountDialog = false
             }
         )
     }

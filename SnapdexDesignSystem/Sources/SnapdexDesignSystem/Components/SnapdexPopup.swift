@@ -19,11 +19,11 @@ public struct SnapdexPopup: View {
     let description: String
     let primaryButton: PopupButton
     let secondaryButton: PopupButton?
-    let onDismiss: (() -> Void)?
+    let onDismiss: () -> Void
     
     @Environment(\.theme) private var theme
     
-    public init(title: String, description: String, primaryButton: PopupButton, secondaryButton: PopupButton? = nil, onDismiss: (() -> Void)? = nil) {
+    public init(title: String, description: String, onDismiss: @escaping () -> Void, primaryButton: PopupButton, secondaryButton: PopupButton? = nil) {
         self.title = title
         self.description = description
         self.primaryButton = primaryButton
@@ -36,9 +36,7 @@ public struct SnapdexPopup: View {
             theme.colors.shadow
                 .ignoresSafeArea()
                 .onTapGesture {
-                    if let onDismiss {
-                        onDismiss()
-                    }
+                    onDismiss()
                 }
             
             VStack(spacing: 16) {

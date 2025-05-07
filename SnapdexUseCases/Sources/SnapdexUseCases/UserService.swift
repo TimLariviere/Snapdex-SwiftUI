@@ -15,7 +15,7 @@ public protocol UserServicing : Sendable {
     func changePassword(oldPassword: String, newPassword: String) async -> Result<Void, ChangePasswordError>
 }
 
-final class UserService: UserServicing {
+public final class UserService: UserServicing {
     private let analyticsTracker: AnalyticsTracker
     private let crashReporter: CrashReporter
     private let authProvider: AuthProvider
@@ -30,7 +30,7 @@ final class UserService: UserServicing {
         self.remoteUsers = remoteUsers
     }
     
-    func changeName(newName: String) async -> Result<Void, ChangeNameError> {
+    public func changeName(newName: String) async -> Result<Void, ChangeNameError> {
         do {
             let userId = await authProvider.getCurrentUserId()
             
@@ -67,7 +67,7 @@ final class UserService: UserServicing {
         }
     }
     
-    func changePassword(oldPassword: String, newPassword: String) async -> Result<Void, ChangePasswordError> {
+    public func changePassword(oldPassword: String, newPassword: String) async -> Result<Void, ChangePasswordError> {
         do {
             let userId = await authProvider.getCurrentUserId()
             

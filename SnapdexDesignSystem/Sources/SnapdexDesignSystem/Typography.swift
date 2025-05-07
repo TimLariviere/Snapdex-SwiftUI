@@ -7,10 +7,10 @@ public enum FontFamily: String, Sendable {
 }
 
 public struct FontStyle: Sendable {
-    var fontFamily: FontFamily
-    var fontWeight: Font.Weight
-    var fontSize: Int
-    var lineHeight: Int
+    public var fontFamily: FontFamily
+    public var fontWeight: Font.Weight
+    public var fontSize: Int
+    public var lineHeight: Int
     
     public init(fontFamily: FontFamily, fontWeight: Font.Weight, fontSize: Int, lineHeight: Int) {
         self.fontFamily = fontFamily

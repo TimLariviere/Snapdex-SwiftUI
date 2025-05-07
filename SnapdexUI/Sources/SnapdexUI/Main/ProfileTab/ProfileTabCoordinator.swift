@@ -26,6 +26,15 @@ public struct ProfileTabCoordinator: View {
             ProfileScreen(
                 deps: deps
             )
+            .navigationDestination(for: ProfileTabDestination.self) { destination in
+                switch destination {
+                    case .newName: NewNameScreen(deps: deps)
+                    case .newPassword: NewPasswordScreen(deps: deps)
+                    case .chooseAIModel: ChooseAIModelScreen(deps: deps)
+                    case .credits: CreditsScreen()
+                    case .privacyPolicy: PrivacyPolicyScreen()
+                }
+            }
         }
         .environment(router)
     }

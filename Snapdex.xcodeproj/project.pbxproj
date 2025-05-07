@@ -18,6 +18,7 @@
 		27468C0E2D9E866700A2ED98 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27468C0D2D9E866700A2ED98 /* CoreML.framework */; };
 		279EC31E2DA03BB100DD825D /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 279EC31D2DA03BB100DD825D /* GRDB */; };
 		279EC3332DA04F3900DD825D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 279EC3322DA04F3900DD825D /* GoogleService-Info.plist */; };
+		27BB7C9E2DCBD38300DA8678 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 27BB7C9D2DCBD38300DA8678 /* MarkdownUI */; };
 		27EDB2E22DB1112A00615643 /* SnapdexDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2E12DB1112A00615643 /* SnapdexDesignSystem */; };
 		27EDB2E52DB1113400615643 /* SnapdexDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2E42DB1113400615643 /* SnapdexDomain */; };
 		27EDB2E82DB1113F00615643 /* SnapdexData in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDB2E72DB1113F00615643 /* SnapdexData */; };
@@ -73,6 +74,7 @@
 				27EDB2E52DB1113400615643 /* SnapdexDomain in Frameworks */,
 				27468C002D9E849500A2ED98 /* FirebaseAnalytics in Frameworks */,
 				27468C082D9E849500A2ED98 /* FirebaseFirestore in Frameworks */,
+				27BB7C9E2DCBD38300DA8678 /* MarkdownUI in Frameworks */,
 				2723F3152DB7D2860091E0BA /* Flow in Frameworks */,
 				27468C042D9E849500A2ED98 /* FirebaseCore in Frameworks */,
 				27EDB2EE2DB1114F00615643 /* SnapdexUI in Frameworks */,
@@ -148,6 +150,7 @@
 				27EDB2EA2DB1114700615643 /* SnapdexUseCases */,
 				27EDB2ED2DB1114F00615643 /* SnapdexUI */,
 				2723F3142DB7D2860091E0BA /* Flow */,
+				27BB7C9D2DCBD38300DA8678 /* MarkdownUI */,
 			);
 			productName = Snapdex;
 			productReference = 278673412D9D8A6300C03987 /* Snapdex.app */;
@@ -174,6 +177,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 278673382D9D8A6300C03987;
 			minimizedProjectReferenceProxies = 1;
@@ -188,6 +192,7 @@
 				27EDB2E92DB1114700615643 /* XCLocalSwiftPackageReference "SnapdexUseCases" */,
 				27EDB2EC2DB1114F00615643 /* XCLocalSwiftPackageReference "SnapdexUI" */,
 				2723F3132DB7D2860091E0BA /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
+				27BB7C9C2DCBD38300DA8678 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 278673422D9D8A6300C03987 /* Products */;
@@ -502,6 +507,14 @@
 				kind = branch;
 			};
 		};
+		27BB7C9C2DCBD38300DA8678 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -549,6 +562,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 279EC31C2DA03BB100DD825D /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		27BB7C9D2DCBD38300DA8678 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27BB7C9C2DCBD38300DA8678 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
 		};
 		27EDB2E12DB1112A00615643 /* SnapdexDesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;

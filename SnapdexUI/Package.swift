@@ -15,7 +15,8 @@ let package = Package(
         .package(path: "../SnapdexDesignSystem"),
         .package(path: "../SnapdexDomain"),
         .package(path: "../SnapdexUseCases"),
-        .package(url: "https://github.com/tevelee/SwiftUI-Flow.git", .upToNextMajor(from: "3.0.2"))
+        .package(url: "https://github.com/tevelee/SwiftUI-Flow.git", .upToNextMajor(from: "3.0.2")),
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", .upToNextMajor(from: "2.4.1"))
     ],
     targets: [
         .target(

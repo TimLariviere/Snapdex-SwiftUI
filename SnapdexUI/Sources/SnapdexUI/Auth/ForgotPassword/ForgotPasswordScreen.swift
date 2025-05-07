@@ -51,6 +51,9 @@ struct ForgotPasswordScreen: View {
         SnapdexPopup(
             title: "Password Reset",
             description: "Please check your email for the link to reset your password.",
+            onDismiss: {
+                router.pop()
+            },
             primaryButton: PopupButton(text: "OK") {
                 router.pop()
             }

@@ -8,6 +8,7 @@ public protocol AppDependencies: Sendable {
     var pokemonServicing: PokemonServicing { get }
     var userDataValidator: UserDataValidator { get }
     var statisticsServicing: StatisticsServicing { get }
+    var userServicing: UserServicing { get }
     var localEvolutionChains: LocalEvolutionChainDataSource { get }
 }
 

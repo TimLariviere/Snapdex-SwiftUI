@@ -173,6 +173,16 @@ final class MockStatisticsService: StatisticsServicing {
     }
 }
 
+final class MockUserService: UserServicing {
+    func changeName(newName: String) async -> Result<Void, ChangeNameError> {
+        return .success(())
+    }
+    
+    func changePassword(oldPassword: String, newPassword: String) async -> Result<Void, ChangePasswordError> {
+        return .success(())
+    }
+}
+
 final class MockAppDependencies : AppDependencies {
     static let shared = MockAppDependencies()
     
@@ -190,6 +200,9 @@ final class MockAppDependencies : AppDependencies {
     
     let _statisticsService = MockStatisticsService()
     var statisticsServicing: StatisticsServicing { _statisticsService }
+    
+    let _userService = MockUserService()
+    var userServicing: UserServicing { _userService }
     
     let _localEvolutionChains = MockEvolutionChainDataSource()
     var localEvolutionChains: LocalEvolutionChainDataSource { _localEvolutionChains }
