@@ -2,24 +2,33 @@ import SwiftUI
 
 public struct PopupButton {
     let text: LocalizedStringKey
-    let onClick: @Sendable () -> Void
-    let enabled = true
-    let isBusy = false
+    let onClick: @MainActor () -> Void
+    let enabled: Bool
+    let isBusy: Bool
+    
+    public init(text: LocalizedStringKey, enabled: Bool = true, isBusy: Bool = false, onClick: @MainActor @escaping () -> Void) {
+        self.text = text
+        self.enabled = enabled
+        self.isBusy = isBusy
+        self.onClick = onClick
+    }
 }
 
 public struct SnapdexPopup: View {
     let title: String
     let description: String
     let primaryButton: PopupButton
-    let secondaryButton: PopupButton? = nil
-    let onDismiss: (() -> Void)? = nil
+    let secondaryButton: PopupButton?
+    let onDismiss: (() -> Void)?
     
     @Environment(\.theme) private var theme
     
-    public init(title: String, description: String, primaryButton: PopupButton) {
+    public init(title: String, description: String, primaryButton: PopupButton, secondaryButton: PopupButton? = nil, onDismiss: (() -> Void)? = nil) {
         self.title = title
         self.description = description
         self.primaryButton = primaryButton
+        self.secondaryButton = secondaryButton
+        self.onDismiss = onDismiss
     }
     
     public var body: some View {

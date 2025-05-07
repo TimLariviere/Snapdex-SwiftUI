@@ -5,9 +5,9 @@ public struct SnapdexSecondaryButton: View {
     var text: LocalizedStringKey
     var enabled: Bool = true
     var isBusy: Bool = false
-    var action: () -> Void
+    var action: @MainActor () -> Void
     
-    public init(_ text: LocalizedStringKey, enabled: Bool = true, isBusy: Bool = false, action: @Sendable @escaping () -> Void) {
+    public init(_ text: LocalizedStringKey, enabled: Bool = true, isBusy: Bool = false, action: @MainActor @escaping () -> Void) {
         self.text = text
         self.enabled = enabled
         self.isBusy = isBusy

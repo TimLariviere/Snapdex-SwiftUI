@@ -58,7 +58,7 @@ struct StatsScreen: View {
     }
     
     func typeProgress(typeUi: TypeUi, statistic: Statistic) -> some View {
-        let completionRate = Double(viewModel.overallCompletion.caughtPokemonCount) / Double(viewModel.overallCompletion.totalPokemonCount)
+        let completionRate = Double(statistic.caughtPokemonCount) / Double(statistic.totalPokemonCount)
         let completionRateInt = Int(completionRate * 100)
         
         return VStack(spacing: 8) {

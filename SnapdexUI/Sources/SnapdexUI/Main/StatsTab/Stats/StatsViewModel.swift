@@ -8,7 +8,7 @@ import SnapdexDomain
         (type, Statistic(totalPokemonCount: 1, caughtPokemonCount: 0))
     }
     
-    private var cancellable: AnyCancellable?
+    @ObservationIgnored private var cancellable: AnyCancellable?
     
     init(deps: AppDependencies) {
         self.cancellable = deps.authServicing.getCurrentUserPublisher()

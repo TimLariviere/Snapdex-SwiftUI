@@ -5,7 +5,9 @@ import SnapdexUseCases
 
 struct ForgotPasswordScreen: View {
     @Environment(\.theme) private var theme
+    @Environment(Router<AuthDestination>.self) private var router
     @State private var viewModel: ForgotPasswordViewModel
+    @State private var showEmailSentDialog: Bool = false
     
     init(deps: AppDependencies) {
         _viewModel = State(initialValue: ForgotPasswordViewModel(deps: deps))
@@ -35,6 +37,24 @@ struct ForgotPasswordScreen: View {
             .padding(.top, 84)
             .padding(.bottom, 20)
         }
+        .overlay {
+            if showEmailSentDialog {
+                emailSentDialog
+            }
+        }
+        .onReceive(viewModel.didSendEmail) {
+            showEmailSentDialog = true
+        }
+    }
+    
+    var emailSentDialog: some View {
+        SnapdexPopup(
+            title: "Password Reset",
+            description: "Please check your email for the link to reset your password.",
+            primaryButton: PopupButton(text: "OK") {
+                router.pop()
+            }
+        )
     }
 }
 

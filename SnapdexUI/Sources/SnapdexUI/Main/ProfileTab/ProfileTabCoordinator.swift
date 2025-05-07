@@ -4,12 +4,16 @@ import SnapdexDesignSystem
 import SnapdexDomain
 import SnapdexUseCases
 
-enum StatsTabDestination: Hashable {
-    
+enum ProfileTabDestination: Hashable {
+    case newName
+    case newPassword
+    case chooseAIModel
+    case credits
+    case privacyPolicy
 }
 
-public struct StatsTabCoordinator: View {
-    @State private var router = Router<StatsTabDestination>()
+public struct ProfileTabCoordinator: View {
+    @State private var router = Router<ProfileTabDestination>()
     
     private let deps: AppDependencies
     
@@ -19,7 +23,7 @@ public struct StatsTabCoordinator: View {
     
     public var body: some View {
         NavigationStack(path: $router.path) {
-            StatsScreen(
+            ProfileScreen(
                 deps: deps
             )
         }

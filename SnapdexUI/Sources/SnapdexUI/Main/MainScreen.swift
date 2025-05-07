@@ -24,7 +24,7 @@ struct MainScreen: View {
             StatsTabCoordinator(deps: deps)
                 .opacity(selectedTab == 1 ? 1.0 : 0.0)
             
-            Text("Profile")
+            ProfileTabCoordinator(deps: deps)
                 .opacity(selectedTab == 2 ? 1.0 : 0.0)
             
             SnapdexNavBar(
