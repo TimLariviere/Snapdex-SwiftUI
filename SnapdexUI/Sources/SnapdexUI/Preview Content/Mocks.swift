@@ -158,6 +158,21 @@ final class MockEvolutionChainDataSource: LocalEvolutionChainDataSource {
     }
 }
 
+final class MockStatisticsService: StatisticsServicing {
+    func getCompletionRate(userId: SnapdexDomain.UserId) -> AnyPublisher<Statistic, Never> {
+        return Just(Statistic(totalPokemonCount: 151, caughtPokemonCount: 75)).eraseToAnyPublisher()
+    }
+    
+    func getCompletionRateByType(userId: SnapdexDomain.UserId) -> AnyPublisher<[PokemonType : Statistic], Never> {
+        return Just(
+            PokemonType.allCases.associate { type in
+                (type, Statistic(totalPokemonCount: 151, caughtPokemonCount: 75))
+            }
+        )
+        .eraseToAnyPublisher()
+    }
+}
+
 final class MockAppDependencies : AppDependencies {
     static let shared = MockAppDependencies()
     
@@ -172,6 +187,9 @@ final class MockAppDependencies : AppDependencies {
     
     let _pokemonService = MockPokemonService()
     var pokemonServicing: PokemonServicing { _pokemonService }
+    
+    let _statisticsService = MockStatisticsService()
+    var statisticsServicing: StatisticsServicing { _statisticsService }
     
     let _localEvolutionChains = MockEvolutionChainDataSource()
     var localEvolutionChains: LocalEvolutionChainDataSource { _localEvolutionChains }

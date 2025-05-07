@@ -2,10 +2,10 @@ import Combine
 import GRDB
 import SnapdexDomain
 
-public final class StatisticDataSource : LocalStatisticsDataSource {
+public final class StatisticsDataSource : LocalStatisticsDataSource {
     private let database: SnapdexDatabase
     
-    init(database: SnapdexDatabase) {
+    public init(database: SnapdexDatabase) {
         self.database = database
     }
     

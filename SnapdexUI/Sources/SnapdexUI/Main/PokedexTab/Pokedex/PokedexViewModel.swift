@@ -34,12 +34,9 @@ import SnapdexUseCases
             .store(in: &cancellables)
         
         authServicing.getCurrentUserPublisher()
-            .flatMap { user in
-                if let userId = user?.id {
-                    self.pokemonServicing.getPokemonCaughtByUser(userId: userId)
-                } else {
-                    Just([Pokemon]()).eraseToAnyPublisher()
-                }
+            .compactMap { $0?.id }
+            .flatMap { userId in
+                self.pokemonServicing.getPokemonCaughtByUser(userId: userId)
             }
             .sink { pokemons in
                 self.allPokemons = pokemons

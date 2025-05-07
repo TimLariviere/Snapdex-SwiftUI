@@ -21,7 +21,7 @@ struct MainScreen: View {
             PokedexTabCoordinator(deps: deps)
                 .opacity(selectedTab == 0 ? 1.0 : 0.0)
             
-            Text("Stats")
+            StatsTabCoordinator(deps: deps)
                 .opacity(selectedTab == 1 ? 1.0 : 0.0)
             
             Text("Profile")

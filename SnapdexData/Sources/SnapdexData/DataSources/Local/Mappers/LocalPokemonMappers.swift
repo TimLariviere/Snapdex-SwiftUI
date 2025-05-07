@@ -19,13 +19,3 @@ public extension PokemonWithRelations {
         )
     }
 }
-
-public extension Array {
-    func associate<K, V>(_ transform: (Element) -> (K, V)) -> Dictionary<K, V> {
-        return Dictionary(uniqueKeysWithValues: map { transform($0) })
-    }
-}
-
-public extension UnitMass {
-    static let hectograms = UnitMass(symbol: "hg", converter: UnitConverterLinear(coefficient: 0.1))
-}
